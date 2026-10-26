@@ -1,0 +1,17 @@
+Este caderno organiza uma atividade prática para discutir análise de variância, teste F, comparações de Tukey e regressão em ecologia. O foco é conectar a pergunta científica à exploração gráfica, à estimativa de efeitos, ao diagnóstico do modelo e ao alcance da conclusão. O código foi preparado como roteiro docente de análise, com funções auxiliares e extensões que podem ser selecionadas conforme o tempo disponível.
+
+\begin{atencao}
+As três bases são \textbf{simuladas} e foram utilizadas na apostila da disciplina. Não representam observações de campo ou estimativas reais sobre a Amazônia. O experimento de decomposição e o estudo observacional de aves exigem interpretações diferentes: a presença de uma associação não estabelece causalidade.
+\end{atencao}
+
+\textbf{Como usar o material.} A Parte~1 reúne fundamentos e resultados centrais. A Parte~2 apresenta as atividades, perguntas e respostas esperadas. A Parte~3 oferece uma prancha comentada por figura ou painel. O Apêndice~A contém \textbf{todas as linhas do script principal}, inclusive as funções de apoio, a exportação e a produção do relatório HTML. Os números de linha são os mesmos do arquivo \texttt{atividade\_docente.R}.
+
+As referências a ``seção 0'', ``seção 1'' e assim por diante no roteiro indicam os blocos do \textbf{script R}, não a numeração das seções deste PDF. A tabela de localização do apêndice permite passar do assunto ao comando. O código deve ser executado na ordem original; as funções da seção 0 são usadas nos blocos seguintes.
+
+\textbf{Preparar o R.} Extraia o pacote da atividade e abra \texttt{atividade-docente.Rproj} no RStudio. Instale \texttt{ggplot2}, se necessário, com \texttt{install.packages("ggplot2")}. Depois, abra o script e execute as seções, ou use \texttt{source("atividade\_docente.R", encoding="UTF-8")}. As pastas \texttt{dados/} e \texttt{saidas/} devem permanecer junto ao projeto.
+
+Os dados já acompanham o pacote. Ao executar o script, as saídas são regravadas somente na pasta \texttt{saidas/}. O código não instala pacotes automaticamente, não recria os CSV e não remove arquivos. Para projeção, pode-se utilizar também \texttt{saidas/relatorio\_aula.html}, com os mesmos gráficos e tabelas.
+
+\textbf{Sobre o código impresso.} Comentários e comandos utilizam predominantemente caracteres ASCII para portabilidade. A numeração permite localizar os blocos. Para executar, prefira o arquivo \texttt{.R}: copiar do PDF pode introduzir quebras de linha visuais.
+
+Execução validada em R 4.4.2 e ggplot2 4.0.0, com conferências independentes de F, Tukey, HC3 e leave-one-out. A interpretação combina desenho, resposta e diagnóstico \parencite{quinn2002,zuur2010,wasserstein2016}.

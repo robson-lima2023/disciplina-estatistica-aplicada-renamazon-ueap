@@ -1,6 +1,29 @@
 # disciplina-estatistica-aplicada-renamazon-ueap
 Materiais da disciplina Estatística Aplicada no RENAMAZON/UEAP: aulas, apostilas, scripts em R e dados ecológicos.
 
+## Atividade prática — ANOVA, teste F, Tukey e regressão
+
+**Aula de 27 de outubro de 2026 · Caderno institucional e oficina docente em R**
+
+Caderno de **47 páginas**, com fundamentos, roteiro de discussão, perguntas e respostas esperadas, **19 figuras/painéis comentados** e o **script integral de 722 linhas**, organizado em blocos com numeração contínua. A atividade explora decomposição de serapilheira e diversidade de aves, utilizando as bases simuladas da apostila.
+
+- [Ler o caderno de aula em PDF](atividade-docente-2026-10-27/output/pdf/Caderno_Atividade_ANOVA_Tukey_Regressao.pdf)
+- [Baixar o pacote atualizado completo — PDF, LaTeX, R, dados e figuras](Caderno_Atividade_ANOVA_Tukey_Regressao_LaTeX.zip)
+- [Abrir o script principal em R](atividade-docente-2026-10-27/atividade_docente.R)
+- [Consultar o roteiro docente e as respostas esperadas](atividade-docente-2026-10-27/ROTEIRO_DOCENTE.md)
+- [Acessar os dados CSV da atividade](atividade-docente-2026-10-27/dados)
+- [Consultar os gráficos em PNG e PDF](atividade-docente-2026-10-27/saidas/figuras)
+- [Consultar as tabelas de resultados](atividade-docente-2026-10-27/saidas/tabelas)
+- [Acessar o relatório HTML — baixe o pacote para abrir localmente](atividade-docente-2026-10-27/saidas/relatorio_aula.html)
+- [Consultar os fontes LaTeX e as instruções de compilação](atividade-docente-2026-10-27/caderno_latex/README.md)
+- [Consultar as instruções de execução e a fundamentação](atividade-docente-2026-10-27/README.md)
+- [Consultar a validação numérica e gráfica](atividade-docente-2026-10-27/VALIDACAO.md)
+- [Baixar o pacote original da oficina em R, anterior ao caderno LaTeX](atividade_docente_ANOVA_Tukey_Regressao_27-10-2026.zip)
+
+Para executar, extraia o pacote atualizado, abra `atividade-docente.Rproj` no RStudio, instale `ggplot2` se necessário e execute `atividade_docente.R`. O relatório HTML funciona localmente, sem internet, desde que a pasta de figuras permaneça junto dele. Os arquivos LaTeX também devem permanecer na estrutura do pacote para localizar o script e as figuras.
+
+Além da análise exploratória, ANOVA e Tukey, o script inclui regressão simples e múltipla, testes F parciais, diagnósticos, intervalos de confiança e predição e extensões de randomização, HC3, influência, leave-one-out e blocos casualizados. **Todos os dados são simulados para ensino.**
+
 ## Apostila de Estatística Aplicada
 
 **Estatística Aplicada à Ecologia, Biodiversidade e Recursos Naturais Amazônicos**  

@@ -1,0 +1,23 @@
+\documentclass{ueap-apostila}
+\input{preambulo}
+\begin{document}
+\capaatividade
+\frontmatter
+\chapter*{Apresentação}
+\addcontentsline{toc}{chapter}{Apresentação}
+\input{apresentacao}
+\clearpage
+\renewcommand{\contentsname}{Sumário}
+\tableofcontents
+\mainmatter
+\begingroup\setstretch{1.25}
+\input{fundamentos}
+\clearpage\endgroup
+\input{roteiro}
+\input{galeria}
+\appendix
+\input{script_integral}
+\backmatter
+\fancyhead[R]{\small Material de consulta}
+\printbibliography[heading=bibintoc,title={Referências}]
+\end{document}

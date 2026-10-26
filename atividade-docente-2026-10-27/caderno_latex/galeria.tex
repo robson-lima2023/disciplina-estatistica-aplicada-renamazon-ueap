@@ -1,0 +1,78 @@
+\chapter{Galeria gráfica comentada}
+Cada prancha pode ser usada como apoio à discussão antes de executar o bloco correspondente. As figuras são importadas em formato vetorial das saídas validadas do R. Os números nos nomes dos arquivos identificam a sequência gráfica, que não coincide necessariamente com a numeração das seções do script.
+
+\prancha{Observações individuais e grupos}{01_dic_dados}
+{Distribuição da perda de massa em 24 recipientes simulados, com oito unidades independentes por tratamento.}
+{A separação visual das médias acompanha variação dentro dos grupos. Pergunte à turma qual informação seria perdida por um gráfico de barras com apenas três médias. Cada ponto deve permanecer identificável como unidade; o deslocamento horizontal por jitter é apenas um recurso de exibição. A comparação causal depende da alocação independente da umidade aos recipientes. Bloco 2 do script.}
+
+\prancha{Comparar formas com uma escala comum}{02_dic_histogramas}
+{Histogramas com largura de classe constante entre tratamentos, construídos com a mesma escala horizontal.}
+{Com oito unidades por tratamento, a forma aparente muda facilmente ao alterar as classes. Use esta figura junto com os pontos da prancha anterior. Uma classe vazia não demonstra descontinuidade biológica; uma aparência simétrica não comprova normalidade. Mostre como a largura de classe muda a percepção sem alterar as médias ou os dados usados no modelo. Bloco 2.}
+
+\prancha{Geometria da análise de variância}{03_geometria_anova}
+{Desvios em relação à média geral e resíduos em relação às médias dos tratamentos. Os índices dos recipientes não representam uma sequência temporal.}
+{As cruzes marcam as referências e os segmentos mostram os desvios. A ANOVA soma seus quadrados, não seus comprimentos. Ao permitir uma média por tratamento, parte da soma de quadrados total passa a ser explicada pelas diferenças entre grupos. Peça que a turma relacione a mudança de referência à identidade $SQ_T=SQ_{\mathrm{trat}}+SQ_E$. Bloco 3.}
+
+\prancha{A distribuição nula do teste F}{04_distribuicao_F}
+{Distribuição F teórica com 2 e 21 graus de liberdade, região crítica de 5\% e estatística observada do DIC.}
+{A estatística observada, aproximadamente 34,18, está muito além do valor crítico, 3,47. O valor-p é a área à direita do observado sob a hipótese nula e as suposições do modelo. A faixa rosa começa no valor crítico, portanto representa $\alpha$, não o valor-p observado. Diferencie essas duas áreas na exposição. O teste global informa evidência contra igualdade das médias, sem identificar os pares. Bloco 3.}
+
+\prancha{Diagnóstico do DIC}{05_dic_painel}
+{Resíduos padronizados, Q--Q, escala-localização e influência no modelo de um fator.}
+{As três posições verticais no painel A decorrem das três médias ajustadas. O Q--Q deve ser lido considerando o pequeno tamanho amostral. No DIC balanceado, a alavancagem é igual entre recipientes; diferenças de Cook decorrem dos resíduos. As linhas $4/n$ e $2p/n$ são referências de triagem, não critérios de exclusão. Não se confirma independência por qualquer um desses painéis. Bloco 4.}
+
+\prancha{A posição experimental também merece inspeção}{06_posicao}
+{Resíduos do DIC ao longo da posição casualizada dos recipientes, em pontos percentuais.}
+{Um padrão por posição poderia sugerir heterogeneidade ambiental ou problema de condução experimental. A ausência de padrão aparente não certifica independência. O identificador do recipiente não é sua posição nem uma data. Discuta como uma tendência de bancada, luminosidade ou temperatura precisaria ser considerada no planejamento e na análise. Bloco 4.}
+
+\prancha{Randomização e resolução Monte Carlo}{07_randomizacao}
+{Distribuição de F em 4999 realocações dos rótulos de tratamento, mantendo oito unidades por grupo e as respostas observadas fixas.}
+{Nenhuma realocação alcançou o F observado. O valor-p Monte Carlo corrigido é $(0+1)/(4999+1)=0{,}0002$, não zero. A resolução não permite reproduzir uma probabilidade da ordem de $10^{-7}$. O procedimento testa a nula aguda de nenhum efeito em qualquer unidade, justificada pelo mecanismo de alocação do DIC; não se aplica automaticamente à troca de rótulos em estudos observacionais. Bloco 5, extensão.}
+
+\prancha{Tukey: diferenças e intervalos simultâneos}{08_tukey}
+{Estimativas e IC95\% simultâneos para a família das três comparações par a par de umidade.}
+{O sentido de cada diferença depende da ordem dos fatores. Os três intervalos excluem zero neste cenário. A comparação Alta menos Baixa é de 17,62 pontos percentuais, com IC de 12,24 a 23,01. Compartilhar uma conclusão de não rejeição em outro conjunto de dados não demonstraria equivalência. Priorize magnitude e incerteza em vez de resumir toda a informação com letras. Bloco 6.}
+
+\prancha{Médias sem esconder as observações}{09_medias_observacoes}
+{Pontos individuais, médias e IC95\% individuais calculados com o quadrado médio residual do DIC.}
+{Os losangos representam médias, não medianas. As barras quantificam incerteza sobre cada média; não mostram a dispersão dos recipientes. Não substitua os intervalos simultâneos das diferenças por uma inspeção da sobreposição destas barras. A figura permite discutir conjuntamente variação individual, estimativa média e precisão. Bloco 6.}
+
+\prancha{Distribuições da base de aves}{10_aves_distribuicoes}
+{Exploração de Shannon, precipitação, riqueza e heterogeneidade topográfica nas localidades simuladas. As escalas variam entre painéis.}
+{As respostas têm naturezas diferentes: Shannon é contínuo, riqueza é contagem e os preditores têm unidades próprias. Não compare a altura das barras como se todos os painéis tivessem o mesmo eixo. Na simulação, a riqueza foi ajustada para garantir $H'\leq\ln S$; portanto, não é uma demonstração de uma resposta Poisson pura. Bloco 7.}
+
+\prancha{Reconhecer grupos antes de ajustar uma reta}{11_aves_dispersao}
+{Relação bruta entre Shannon e topografia, com cores por ambiente e marcas marginais das observações.}
+{A coloração sugere que uma reta simples pode combinar o gradiente topográfico com diferenças entre ambientes. As marcas marginais ajudam a avaliar a faixa de suporte dos dados. O ambiente é uma categoria observada; a topografia não foi manipulada. Solicite uma hipótese antes de ajustar o modelo e discuta quais fatores poderiam confundir a associação. Bloco 7.}
+
+\prancha{Dois intervalos para duas perguntas}{12_regressao_intervalos}
+{Regressão simples com IC95\% pontual da média, em azul, e IP95\% para uma nova observação, em cinza.}
+{O intervalo de predição incorpora a variabilidade residual individual, por isso é mais amplo. Para 15 m, a média prevista é aproximadamente 2,163, com IC de 2,080 a 2,246 e IP de 1,662 a 2,665. Ambos dependem da adequação do modelo simples e não cobrem automaticamente confundimento ou erro de seleção dos locais. As faixas não são bandas simultâneas para toda a curva. Bloco 8.}
+
+\prancha{Diagnóstico da regressão simples}{13_regressao_simples_painel}
+{Distribuição dos resíduos, escala-localização, alavancagem e distância de Cook no modelo com topografia como único preditor.}
+{L04 apresenta a maior distância de Cook no ajuste simples. Investigue sua posição no gráfico por ambiente e discuta se a discrepância pode refletir estrutura omitida. Uma observação influente não é necessariamente incorreta. O local permanece na análise; não se deve removê-lo apenas para modificar o valor-p ou melhorar o aspecto do Q--Q. Bloco 8.}
+
+\prancha{Diagnóstico após incorporar preditores}{14_regressao_multipla_painel}
+{Diagnóstico do modelo aditivo com topografia, chuva e ambiente.}
+{Compare com a prancha anterior, sem tratar melhora aparente como prova de que o modelo representa todo o processo ecológico. O modelo múltiplo reduz a dispersão residual neste cenário, mas ainda exige examinar observações influentes e variância. A posição de cada ponto depende da matriz completa de preditores. O código imprime o local de maior Cook e mantém todos os registros. Bloco 9.}
+
+\prancha{Uma associação condicional, explicitamente definida}{15_efeitos_condicionais}
+{Médias previstas por ambiente a 2400 mm de precipitação, com IC pontuais. Os pontos foram corrigidos apenas pelo termo de chuva.}
+{As retas têm a mesma inclinação por construção do modelo aditivo. Não são três inclinações independentes estimadas em cada painel. A grade fica dentro do intervalo de topografia observado em cada ambiente, e a chuva de referência deve ter suporte nos dados. A correção dos pontos retira somente o efeito linear estimado de chuva, preservando a informação restante e os resíduos. Bloco 10.}
+
+\prancha{Covariância clássica e sensibilidade HC3}{16_coeficientes_robustez}
+{Coeficientes OLS com IC t clássicos e IC normais assintóticos calculados com covariância HC3. As escalas horizontais são próprias de cada efeito.}
+{As estimativas são iguais porque o método de ajuste dos coeficientes não mudou; o estimador da covariância mudou. HC3 é uma sensibilidade à heterocedasticidade, não uma solução para dependência espacial ou confundimento. As unidades de incremento aparecem nos títulos. Não compare o tamanho visual de efeitos entre painéis com escalas diferentes. Bloco 10, extensão.}
+
+\prancha{Influência sobre a conclusão principal}{17_sensibilidade_locais}
+{Coeficiente parcial de topografia em 36 reajustes, omitindo uma localidade por vez. A linha indica a estimativa com todos os locais.}
+{A inclinação varia aproximadamente de 0,246 a 0,293 Shannon por 10 m. Essa amplitude informa a estabilidade do coeficiente diante de omissões individuais. Ela não constitui um ranking de dados a excluir e não substitui a investigação do mecanismo de amostragem. A rotina também calcula RMSE leave-one-out, uma avaliação interna dependente da estrutura de independência. Bloco 11.}
+
+\prancha{Outra estrutura experimental: blocos completos}{18_blocos}
+{Perda de massa no DBC simulado; cada linha conecta unidades distintas do mesmo bloco.}
+{Os perfis evidenciam heterogeneidade entre blocos e diferenças entre tratamentos. As linhas não representam medidas repetidas no tempo ou uma curva de dose contínua. O modelo inclui bloco e tratamento de forma aditiva. Sem repetição dentro da célula bloco por tratamento, não se estima a interação separadamente. DBC e DIC são experimentos diferentes nesta atividade. Bloco 12.}
+
+\prancha{Diagnóstico do modelo em blocos}{19_dbc_painel}
+{Diagnóstico do modelo aditivo de decomposição com seis blocos e três tratamentos.}
+{Com 18 unidades e oito parâmetros no modelo aditivo, a alavancagem é relativamente alta e constante neste desenho balanceado. A precisão deve ser lida à luz dos dez graus de liberdade residuais. O teste de tratamento ajustado para bloco apresenta $F_{2,10}=105{,}428$, mas não dispensa avaliar resíduos, aditividade e o protocolo de alocação. Bloco 12.}

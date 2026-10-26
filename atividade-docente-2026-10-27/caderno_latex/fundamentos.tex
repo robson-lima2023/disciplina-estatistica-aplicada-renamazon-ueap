@@ -1,0 +1,53 @@
+\chapter{Fundamentos e resultados centrais}
+\section{Da pergunta ao delineamento}
+O DIC de decomposição contém 24 recipientes independentes, oito em cada nível de umidade. A resposta é a porcentagem de perda de massa seca após um período comum. Cada recipiente recebe o tratamento independentemente; uma única câmara por tratamento confundiria umidade e câmara. O DBC utiliza outra base: 18 unidades em seis blocos completos, com uma unidade por tratamento em cada bloco.
+
+No estudo de aves, há 36 localidades, 12 por ambiente, com quatro horas de esforço agregado por local. Shannon é uma variável sintética com logaritmo natural; topografia é o desvio-padrão da elevação em uma janela comum. As categorias de ambiente não foram casualizadas. Padronizar esforço não garante detectabilidade constante.
+
+\section{ANOVA: a hipótese aparece na decomposição}
+O modelo de um fator é $Y_{ij}=\mu+\tau_i+\varepsilon_{ij}$. A hipótese nula é $H_0:\mu_B=\mu_M=\mu_A$, contra pelo menos uma média diferente. Para o teste clássico, os erros são independentes, normais, de média zero e variância comum. Se $N$ é o número de unidades e $a$ o de tratamentos:
+\begin{align}
+SQ_T&=\sum_i\sum_j(y_{ij}-\bar y)^2,
+&SQ_{\mathrm{trat}}&=\sum_i n_i(\bar y_i-\bar y)^2,\\
+SQ_E&=\sum_i\sum_j(y_{ij}-\bar y_i)^2,
+&SQ_T&=SQ_{\mathrm{trat}}+SQ_E,\\
+F&=\frac{SQ_{\mathrm{trat}}/(a-1)}{SQ_E/(N-a)}.
+\end{align}
+A razão compara a variação entre médias com a variação residual. No DIC, $F_{2,21}=34{,}181$, com $p\approx2{,}49\times10^{-7}$; o valor crítico a 5\% é 3,467. O F global não identifica os pares distintos. O valor-p é condicional à nula e ao modelo; não é a probabilidade de a hipótese ser verdadeira.
+
+\section{Tukey: diferenças com incerteza simultânea}
+Tukey considera a família de comparações par a par e fornece intervalos simultâneos das diferenças \parencite{rtukey}. Para o desenho balanceado:
+\begin{equation}
+(\bar y_i-\bar y_j)\;\pm\;
+q_{1-\alpha;a,\nu}\sqrt{QM_E/n}.
+\end{equation}
+O quantil $q$ vem da amplitude studentizada, $\nu$ é o grau de liberdade residual e $n$ o número de unidades por grupo. Esses intervalos não são os IC individuais de cada média.
+\begin{table}[H]\centering\small
+\caption{Diferenças de perda de massa, em pontos percentuais, no DIC simulado.}
+\begin{tabular}{lrrr}\toprule Comparação & Diferença & IC95\% inferior & IC95\% superior\\\midrule
+Média menos Baixa & 7,775 & 2,390 & 13,160\\
+Alta menos Baixa & 17,624 & 12,239 & 23,009\\
+Alta menos Média & 9,849 & 4,464 & 15,234\\\bottomrule
+\end{tabular}\end{table}
+Todos os intervalos excluem zero neste cenário. Isso não define, por si, a relevância ecológica nem permite medir processos que não foram observados. Diferenças entre porcentagens são expressas em pontos percentuais; aumentos relativos exigiriam uma referência adicional.
+
+\section{Regressão e teste F parcial}
+Na regressão simples, $H'_i=\beta_0+\beta_1T_i+\varepsilon_i$, em que $T$ é topografia em metros. O ajuste executado foi:
+\begin{equation}\widehat H'=1{,}77292+0{,}02601T,\qquad R^2=0{,}3716.\end{equation}
+O teste de $\beta_1=0$ usa $F_{1,34}=20{,}104=t^2$. Essa identidade ocorre porque se testa um único coeficiente angular sob o mesmo modelo. Não demonstra causalidade.
+
+No modelo múltiplo, $T_{10}=(T-15)/10$ e $P_{100}=(P-2400)/100$. Conservado é a categoria de referência. A estimativa de topografia é 0,26867 por 10 m, com IC95\% de 0,18384 a 0,35350, ajustada por chuva e ambiente. O teste parcial compara modelos aninhados ajustados às mesmas observações:
+\begin{equation}
+F_{\mathrm{parcial}}=
+\frac{(SQ_{E,R}-SQ_{E,C})/q}{SQ_{E,C}/(N-p_C)}.
+\end{equation}
+$R$ denota o modelo reduzido, $C$ o completo, $q$ o número de parâmetros adicionais e $p_C$ o total de parâmetros no modelo completo. Para topografia, $F_{1,31}=41{,}721$. Para ambiente como termo conjunto de dois graus de liberdade, $F_{2,31}=21{,}363$. Uma ANOVA sequencial de um único modelo não representa automaticamente a mesma hipótese parcial.
+
+\section{Diagnóstico e sensibilidade}
+Examine resíduos versus ajustados, Q--Q, escala-localização, alavancagem e distância de Cook. Valores de referência como $4/n$ para Cook e $2p/n$ para alavancagem orientam a investigação; não são regras de exclusão. Modelos adequados ao desenho continuam necessários mesmo diante de gráficos aparentemente satisfatórios \parencite{zuur2010}.
+
+Welch é uma sensibilidade à heterogeneidade de variâncias, sem resolver dependência. A covariância HC3 mantém os coeficientes OLS e modifica sua incerteza; os intervalos robustos nesta atividade utilizam referência normal assintótica. Randomização no DIC testa uma nula aguda compatível com a alocação, diferente da simples igualdade de médias. A análise leave-one-out avalia sensibilidade e previsão interna; não é validação regional externa.
+
+\begin{dica}
+Na redação, combine desenho, unidade, estimativa, intervalo e limitação. ``Significativo'' não substitui a magnitude. Um resultado observacional ajustado continua exigindo cautela causal; um dado simulado demonstra o método, não um padrão real da região.
+\end{dica}

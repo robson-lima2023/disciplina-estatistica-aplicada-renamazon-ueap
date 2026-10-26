@@ -1,0 +1,3 @@
+During startup - Warning message:
+Using locale code page other than 65001 ("UTF-8") may cause problems. 
+VALIDADO: F, Tukey, coeficientes, HC3, LOO, limites e 19 pares de figuras.

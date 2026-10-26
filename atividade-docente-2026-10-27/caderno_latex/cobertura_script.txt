@@ -1,0 +1,17 @@
+Script: 722 linhas.
+Incluidas: 722
+Intervalos consecutivos, sem lacunas ou duplicacoes.
+Bloco 0: 1-172
+Bloco 1: 173-196
+Bloco 2: 197-220
+Bloco 3: 221-288
+Bloco 4: 289-320
+Bloco 5: 321-351
+Bloco 6: 352-398
+Bloco 7: 399-421
+Bloco 8: 422-465
+Bloco 9: 466-515
+Bloco 10: 516-581
+Bloco 11: 582-618
+Bloco 12: 619-643
+Bloco 13: 644-722
