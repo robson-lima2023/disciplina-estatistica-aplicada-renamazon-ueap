@@ -1,0 +1,59 @@
+\chapter{Descrever a variação ecológica}
+\objetivo{Calcular e interpretar tendência central, dispersão e quantis; escolher representações gráficas e distinguir variabilidade das observações de precisão da média.}
+
+\section{Qual centro representa os dados?}
+A média aritmética distribui igualmente a soma dos valores entre as $n$ observações. A média ponderada dá pesos definidos pelo problema, não escolhidos para produzir um resultado conveniente:
+\begin{equation}\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i,\qquad
+\bar{x}_w=\frac{\sum_i w_i x_i}{\sum_i w_i},\quad w_i\geq0.\end{equation}
+O peso precisa ter justificativa. Se três volumes iguais de água têm concentração média 2 mg/L e outro volume igual tem 4 mg/L, a média conjunta é $(3\times2+1\times4)/4=2{,}5$ mg/L. A média simples das duas médias, 3 mg/L, trataria os grupos como tendo o mesmo tamanho. Pesos por esforço não corrigem automaticamente diferenças de detectabilidade ou probabilidades de inclusão.
+
+A \textbf{mediana} divide os dados ordenados em duas metades. Se $n$ é ímpar, ocupa a posição $(n+1)/2$; se é par, usa-se a média dos dois valores centrais. A \textbf{moda} é o valor de maior frequência. Pode haver mais de uma moda, ou nenhum valor com frequência superior aos demais. Para dados contínuos, uma classe modal depende dos intervalos escolhidos.
+
+\begin{exemplo}
+Considere nutrientes em cinco amostras de água: $1,2,2,3,12$ mg/L. A média é 4 mg/L, a mediana é 2 mg/L e a moda é 2 mg/L. O evento de 12 mg/L eleva a média e pode representar um pulso ambiental relevante. A mediana descreve melhor uma condição central resistente ao extremo; a média responde à magnitude total dos valores. Nenhuma delas torna a outra incorreta.
+\end{exemplo}
+
+Antes de excluir o valor 12, investigue calibração, transcrição, chuva antecedente e protocolo. Uma observação rara pode ser justamente o fenômeno que precisa ser explicado. Para distribuições assimétricas, relatar média e mediana com medidas de dispersão costuma informar mais que selecionar apenas um resumo.
+
+\section{Quanto os valores variam?}
+A amplitude total é $A=x_{\max}-x_{\min}$. É intuitiva, mas depende somente dos extremos. A variância e o desvio-padrão amostrais utilizam todas as distâncias em relação à média:
+\begin{equation}s^2=\frac{\sum_i(x_i-\bar{x})^2}{n-1},\qquad s=\sqrt{s^2}.\end{equation}
+O denominador $n-1$ corresponde aos graus de liberdade depois de estimar uma média. Sob amostragem independente de uma população com variância finita, $s^2$ é um estimador não enviesado de sua variância. A variância tem unidade ao quadrado; o desvio-padrão retorna à unidade original.
+
+\begin{exemplo}
+Para $1,2,2,3,12$, os desvios da média 4 são $-3,-2,-2,-1,8$. A soma dos quadrados é $9+4+4+1+64=82$. Logo, $s^2=82/4=20{,}5$ (mg/L)$^2$ e $s\approx4{,}528$ mg/L. A amplitude é 11 mg/L. Esses resultados descrevem forte dispersão, influenciada pelo pulso de nutrientes.
+\end{exemplo}
+
+\subsection{Desvio-padrão não é erro-padrão}
+O \textbf{DP} descreve a variabilidade entre observações. O \textbf{erro-padrão da média} estima a variabilidade de médias que seriam obtidas em repetições da amostragem, sob o modelo adotado:
+\begin{equation}\widehat{EP}(\bar{x})=\frac{s}{\sqrt n}.\end{equation}
+No exemplo, $EP\approx2{,}025$ mg/L. A fórmula supõe observações independentes e uma estrutura amostral apropriada. Em um desenho com agrupamento, o cálculo ingênuo pode subestimar a incerteza. Aumentar $n$ tende a reduzir o EP, sem necessariamente reduzir a heterogeneidade ecológica medida pelo DP.
+
+O coeficiente de variação é $CV=100s/\bar{x}$. No exemplo, aproximadamente 113,19\%. Ele expressa dispersão relativa em uma escala de razão, com zero interpretável e média positiva afastada de zero. Não deve ser usado mecanicamente em temperatura Celsius, índices sem zero absoluto ou médias próximas de zero. Classificações universais de CV ``baixo'' ou ``alto'' ignoram diferenças de variável, escala, ambiente e protocolo.
+
+\section{Quartis, decis e percentis}
+Um quantil de ordem $p$ localiza uma posição da distribuição. Os quartis correspondem a 25\%, 50\% e 75\%; os decis, a múltiplos de 10\%; os percentis, a múltiplos de 1\%. A mediana é o segundo quartil. A amplitude interquartílica é $AIQ=Q_3-Q_1$, resumindo a dispersão da metade central dos dados.
+
+Para o pequeno exemplo, pelo algoritmo \texttt{type=7} do R, $Q_1=2$, $Q_2=2$, $Q_3=3$ e $AIQ=1$ mg/L. O percentil 90 é 8,4 mg/L: a interpolação produz um valor que não precisa existir na amostra. Outros algoritmos podem gerar diferenças, especialmente com $n$ pequeno. Declare o algoritmo quando a reprodutibilidade do quantil importar.
+
+Um evento acima do percentil 90 de precipitação é alto em relação à distribuição de referência; não constitui, por si, um limiar universal de desastre. É necessário definir o período, o local e a resolução temporal. O mesmo raciocínio vale para percentis de turbidez.
+
+\section{O gráfico deve responder a uma pergunta}
+O \textbf{histograma} mostra frequências em intervalos; a escolha de classes afeta sua aparência. A \textbf{densidade} é uma curva suavizada cuja área total é um; a altura não é uma probabilidade pontual. Em variáveis não negativas, a suavização pode estender a curva a valores impossíveis, o que exige cuidado na leitura.
+
+O \textbf{boxplot} resume mediana, quartis e dispersão. Na convenção usual do R, as hastes alcançam observações até 1,5 AIQ além dos quartis. Pontos além das hastes não são automaticamente erros. O \textbf{gráfico de dispersão} mostra pares de valores e permite investigar forma, grupos e observações influentes, sem demonstrar causalidade.
+
+\figura{u2_histograma.pdf}{.80}{Turbidez em 24 igarapés simulados. As frequências dependem da largura das classes; não há evidência causal nesta descrição.}
+\figura{u2_boxplot.pdf}{.80}{Oxigênio por ambiente. Cada ponto é um igarapé; o boxplot preserva a visualização da dispersão dentro dos grupos.}
+
+\section{Exercícios da unidade}
+\begin{enumerate}
+\quest{1 | Numérico}{Calcule média, mediana, moda e média ponderada dos exemplos desta unidade. Explique a diferença entre média e mediana diante do valor 12.}
+\quest{2 | Numérico e em R}{Calcule amplitude, variância, DP, EP, CV, quartis, AIQ e percentil 90 de $1,2,2,3,12$. Indique as unidades e o algoritmo de quantis.}
+\quest{3 | Em R}{Resuma oxigênio por ambiente e calcule os decis de turbidez da base de igarapés. Defina a unidade de cada resumo.}
+\quest{4 | Em R e interpretação}{Produza histograma, boxplot, densidade e dispersão. Discuta assimetria, escolha de classes e por que um gráfico não substitui o desenho amostral.}
+\end{enumerate}
+\clearpage
+\section{Roteiro completo em R}
+\scriptunidade{02_descritiva.R}
+

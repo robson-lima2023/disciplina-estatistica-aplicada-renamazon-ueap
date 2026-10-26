@@ -1,0 +1,66 @@
+\chapter{Inferência: diferenças e incerteza}
+\objetivo{Formular hipóteses, interpretar valor-p e intervalo de confiança; distinguir grupos independentes de pares; relacionar tamanho de efeito, erros e poder.}
+
+\section{Da amostra à pergunta populacional}
+A diferença entre duas médias amostrais é quase sempre diferente de zero, mesmo quando não existe diferença populacional. A inferência avalia a magnitude dessa diferença e sua incerteza, condicionada ao desenho e às suposições. Uma estimativa muito precisa ainda pode estar enviesada por seleção dos locais ou confundimento ambiental.
+
+Para oxigênio dissolvido, defina $\Delta=\mu_C-\mu_M$, em que $C$ indica paisagens conservadas e $M$, mosaicos de uso do solo. A hipótese nula bilateral é $H_0:\Delta=0$; a alternativa é $H_1:\Delta\ne0$. Uma hipótese unilateral, como $H_1:\Delta>0$, precisa de justificativa científica prévia. Escolher a direção depois de observar os resultados altera o procedimento e favorece conclusões indevidas.
+
+\begin{conceito}
+O valor-p é a probabilidade, sob $H_0$ e as demais suposições do modelo, de uma estatística de teste tão ou mais extrema que a observada, segundo o critério definido pelo teste. Não é a probabilidade de $H_0$ ser verdadeira, de o resultado ocorrer ``por acaso'' ou de a conclusão estar errada \parencite{wasserstein2016}.
+\end{conceito}
+
+O nível de significância $\alpha$ é escolhido antes da análise. Um procedimento com $\alpha=0{,}05$ controla, nas condições em que é válido, a frequência de rejeições indevidas de $H_0$ quando ela é verdadeira. A decisão $p<\alpha$ não informa, sozinha, magnitude, importância ecológica ou qualidade do desenho. Quando $p\geq\alpha$, dizemos que os dados não oferecem evidência suficiente para rejeitar $H_0$; não que a igualdade foi demonstrada.
+
+\section{Normal e t de Student}
+A distribuição normal é simétrica e descrita por média $\mu$ e variância $\sigma^2$. Muitas distribuições de erro e de estimadores podem ser aproximadas por ela, mas riqueza, abundância ou variáveis muito assimétricas não se tornam normais por conveniência. O teorema central do limite diz respeito à distribuição de somas ou médias sob condições apropriadas, não à transformação automática dos dados brutos.
+
+Ao estimar a variabilidade com uma amostra, a distribuição t de Student tem caudas mais pesadas que a normal. Os graus de liberdade refletem a informação disponível para estimar a variância. Com graus de liberdade grandes, as duas distribuições se aproximam. Não é necessário decorar tabelas: o R calcula probabilidades e quantis, mas a interpretação continua sendo responsabilidade do pesquisador.
+
+\subsection{O teste t de Welch}
+Para dois grupos independentes, o teste de Welch utiliza:
+\begin{equation}t=\frac{\bar{x}_C-\bar{x}_M-\Delta_0}
+{\sqrt{s_C^2/n_C+s_M^2/n_M}},\qquad \Delta_0=0.\end{equation}
+O denominador é o erro-padrão da diferença. Os graus de liberdade são aproximados a partir das variâncias e dos tamanhos de amostra. Ao contrário do teste t com variância combinada, Welch não exige variâncias populacionais iguais. Em R, ele é o padrão de \texttt{t.test(x,y)} \parencite{rwelch}.
+
+O procedimento pressupõe independência e condições adequadas para a aproximação da distribuição da estatística. Com grupos pequenos, assimetria intensa e extremos podem afetar a validade. Avalie o desenho, os gráficos e o mecanismo de geração dos dados, em vez de decidir apenas por um teste de normalidade.
+
+\section{Intervalo de confiança e tamanho de efeito}
+Um intervalo de confiança de 95\% é obtido por um procedimento que, em repetições sob o modelo, cobre o parâmetro verdadeiro em 95\% das vezes. O parâmetro é fixo nessa interpretação frequentista. Após calcular um intervalo, não atribuímos a ele uma probabilidade frequentista de 95\% de conter um valor fixo.
+
+Para uma diferença de médias, o intervalo tem a forma:
+\begin{equation}\widehat\Delta\;\pm\;t_{0{,}975;\nu}\,
+\widehat{EP}(\widehat\Delta).\end{equation}
+No teste bilateral correspondente, um IC95\% que exclui zero acompanha a rejeição de $H_0$ a 5\%. Essa correspondência depende de usar o mesmo modelo, a mesma hipótese e o mesmo ajuste de multiplicidade.
+
+\begin{exemplo}
+Nos 24 igarapés simulados, as médias foram 6,448 mg/L no ambiente conservado e 5,465 mg/L no mosaico. A diferença foi 0,983 mg/L, com IC95\% de 0,578 a 1,389 mg/L; $t=5{,}047$, $\nu=20{,}468$ e $p\approx0{,}000058$. Há evidência de associação entre ambiente e média de oxigênio neste cenário. A diferença em mg/L é o tamanho de efeito na escala original.
+\end{exemplo}
+
+Um limiar de relevância ecológica precisa ser fundamentado para o sistema, a estação e os organismos. Se um limiar previamente definido for 1 mg/L, o intervalo do exemplo inclui efeitos abaixo e acima desse valor: a evidência contra diferença zero não resolve a questão da relevância frente a esse limiar. Não usamos aqui 1 mg/L como padrão ambiental normativo.
+
+\section{Pares, erros e poder}
+Quando os mesmos locais são medidos em duas campanhas, calcule $d_i=x_{i,\mathrm{depois}}-x_{i,\mathrm{antes}}$. O teste pareado avalia a média das diferenças:
+\begin{equation}t=\frac{\bar d}{s_d/\sqrt n},\qquad gl=n-1.\end{equation}
+A normalidade relevante é a das diferenças; os pares devem ser independentes entre si. Ignorar o pareamento perde a estrutura dos dados. Sem controle adequado, uma mudança temporal também pode decorrer de sazonalidade, e não de uma intervenção.
+
+O \textbf{erro tipo I} é rejeitar uma nula verdadeira. O \textbf{tipo II} é não rejeitá-la diante de um efeito específico verdadeiro. O poder, $1-\beta$, é a probabilidade de detectar esse efeito pelo procedimento adotado. Depende da magnitude, variabilidade, replicação, delineamento e $\alpha$. Planeje o tamanho amostral para um efeito cientificamente relevante; não calcule ``poder observado'' apenas para reinterpretar o valor-p já obtido.
+
+\figura{u3_qq.pdf}{.95}{Q--Q por grupo: aproximação à linha sugere compatibilidade com normalidade, mas não a comprova. A independência não é avaliada por esse gráfico.}
+
+\section{Exercícios da unidade}
+\begin{enumerate}
+\quest{1 | Conceitual}{Escreva $H_0$ e $H_1$ bilaterais para oxigênio e explique por que $p=0{,}03$ não significa 3\% de probabilidade de $H_0$ ser verdadeira.}
+\quest{2 | Numérico e em R}{Calcule a diferença Conservado menos Mosaico, o teste de Welch e seu IC95\%. Interprete-os na unidade original.}
+\quest{3 | Em R}{Examine Q--Q e Shapiro--Wilk por grupo. Explique por que $p>0{,}05$ em Shapiro não prova normalidade e por que não há teste gráfico de independência.}
+\quest{4 | Em R e interpretação}{Analise as duas campanhas da base pareada, preservando a correspondência por local. Discuta a limitação de ausência de grupo-controle.}
+\quest{5 | Planejamento em R}{Planeje dois grupos para detectar 0,7 mg/L com DP de 0,6, poder de 80\% e $\alpha=0{,}05$. Arredonde $n$ por grupo para cima e explicite as suposições.}
+\end{enumerate}
+\subsection*{Oficina de leitura da saída}
+No resultado de \texttt{t.test()}, leia primeiro \texttt{mean of x} e \texttt{mean of y}: a ordem define a direção da diferença. Em seguida, localize \texttt{95 percent confidence interval}. Os limites descrevem a diferença populacional compatível com o procedimento; não o intervalo que contém 95\% dos igarapés. Só então consulte \texttt{t}, \texttt{df} e \texttt{p-value} para relacionar a estimativa ao teste.
+
+Escreva duas frases: uma sobre a diferença e sua incerteza; outra sobre a limitação do desenho. Compare com o gabarito apenas depois de redigir. No planejamento amostral, registre qual efeito se deseja detectar, a origem do DP esperado e o número de unidades independentes por grupo. Treze leituras no mesmo igarapé não substituem treze igarapés. Se houver perdas previstas, inclua uma margem justificada no planejamento antes de iniciar a coleta.
+\clearpage
+\section{Roteiro completo em R}
+\scriptunidade{03_inferencia.R}
+

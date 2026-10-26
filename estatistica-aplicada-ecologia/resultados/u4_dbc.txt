@@ -1,0 +1,6 @@
+            Df Sum Sq Mean Sq F value  Pr(>F)    
+bloco        5  152.2    30.4    7.43 0.00376 ** 
+tratamento   2  863.6   431.8  105.43 1.9e-07 ***
+Residuals   10   41.0     4.1                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1

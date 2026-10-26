@@ -1,0 +1,72 @@
+\chapter{ANOVA, teste F e delineamentos}
+\objetivo{Relacionar o delineamento ao modelo; decompor a variabilidade; ler a tabela de ANOVA e diagnosticar os resíduos de DIC e DBC.}
+
+\section{Por que analisar variâncias para comparar médias?}
+Para comparar três médias, a ANOVA investiga se a variação entre elas é grande em relação à variação residual dentro dos grupos. O nome se refere à decomposição da variabilidade; a hipótese científica é sobre médias. A hipótese nula de um fator é $H_0:\mu_1=\mu_2=\cdots=\mu_a$. A alternativa diz que pelo menos uma média difere, sem afirmar qual delas ou quantos pares diferem.
+
+No experimento didático, 24 recipientes independentes recebem três níveis de umidade, oito por nível. Todos contêm serapilheira preparada pelo mesmo protocolo e permanecem pelo mesmo período. A resposta é a perda de massa seca, $100(m_0-m_f)/m_0$, em porcentagem. O tempo, a composição inicial e o procedimento de secagem precisam ser padronizados. Os resultados são simulados.
+
+\begin{conceito}
+No \textbf{Delineamento Inteiramente Casualizado (DIC)}, os tratamentos são alocados aleatoriamente entre unidades consideradas suficientemente homogêneas para a comparação. A replicação estima a variação não explicada; a casualização reduz a associação sistemática entre tratamento e fatores não controlados. Nenhuma delas elimina erros de medição ou dependência criada pelo protocolo.
+\end{conceito}
+
+O recipiente é a unidade experimental porque recebe a umidade independentemente. Sacos de serapilheira dentro do mesmo recipiente são subamostras. Uma câmara única para cada nível de umidade não forneceria replicação independente desse tratamento: qualquer diferença entre câmaras ficaria confundida com a umidade.
+
+\section{Modelo e decomposição}
+O modelo de um fator pode ser escrito como:
+\begin{equation}Y_{ij}=\mu+\tau_i+\varepsilon_{ij},
+\quad i=1,\ldots,a,\quad j=1,\ldots,n_i.\end{equation}
+$Y_{ij}$ é a resposta da unidade $j$ no tratamento $i$; $\mu$ representa um nível geral; $\tau_i$ é o efeito do tratamento sob uma restrição de identificação; $\varepsilon_{ij}$ é o erro. No desenho balanceado, pode-se adotar $\sum_i\tau_i=0$. Para os testes clássicos, os erros são independentes, de média zero, variância comum $\sigma^2$ e distribuição normal.
+
+Se $N=\sum_i n_i$, $\bar y_i$ é a média do grupo e $\bar y$ a média geral, então:
+\begin{align}
+SQ_T&=\sum_i\sum_j(y_{ij}-\bar y)^2,\\
+SQ_{\mathrm{trat}}&=\sum_i n_i(\bar y_i-\bar y)^2,\\
+SQ_E&=\sum_i\sum_j(y_{ij}-\bar y_i)^2,\\
+SQ_T&=SQ_{\mathrm{trat}}+SQ_E.
+\end{align}
+Cada soma de quadrados mede uma fonte de variação. Os graus de liberdade são $N-1$, $a-1$ e $N-a$, respectivamente. Dividindo cada soma pelo respectivo grau de liberdade, obtemos quadrados médios. Sob a nula, o quadrado médio de tratamentos e o residual estimam a mesma variância; uma separação entre médias tende a elevar o primeiro.
+
+\begin{equation}F=\frac{QM_{\mathrm{trat}}}{QM_E}
+=\frac{SQ_{\mathrm{trat}}/(a-1)}{SQ_E/(N-a)}.\end{equation}
+A distribuição F de Fisher--Snedecor é não negativa, assimétrica e definida por dois graus de liberdade. Valores grandes fornecem evidência contra a igualdade das médias. O valor-p é a área da cauda superior, sob $H_0$, a partir do F observado.
+
+\begin{table}[H]\centering\small
+\caption{ANOVA do DIC simulado. Somas e quadrados médios arredondados; perda em porcentagem.}
+\begin{tabular}{lrrrrr}\toprule
+Fonte & gl & SQ & QM & F & valor-p\\\midrule
+Umidade & 2 & 1248,1 & 624,1 & 34,18 & $2{,}49\times10^{-7}$\\
+Resíduo & 21 & 383,4 & 18,3 & --- & ---\\
+Total & 23 & 1631,6 & --- & --- & ---\\\bottomrule
+\end{tabular}\end{table}
+
+Arredondamentos podem fazer as parcelas impressas diferirem ligeiramente do total. No cálculo sem arredondamento, a identidade é exata. O teste indica evidência contra médias iguais, mas não identifica sozinho os pares distintos. A unidade seguinte examina essas comparações.
+
+\section{Diagnosticar é confrontar o modelo com os dados}
+Resíduos são diferenças entre observações e valores ajustados. Examine resíduos versus ajustados: padrões de curvatura ou abertura em funil sugerem problemas. O Q--Q investiga compatibilidade aproximada da distribuição residual com a normal. Resíduos por tratamento e o teste de Fligner auxiliam na avaliação das variâncias. Com amostras pequenas, a ausência de rejeição não comprova homogeneidade.
+
+\figura{u4_diagnostico.pdf}{.84}{Diagnóstico do DIC. Os dois painéis superiores avaliam forma e distribuição; os inferiores ajudam a identificar dispersão e influência. Nenhum painel confirma independência.}
+
+Independência vem principalmente da alocação e da condução experimental. Um gráfico por posição ou ordem de medição pode revelar padrões, mas a ausência deles não valida um protocolo inadequado. Investigue observações influentes e documente decisões. Não elimine pontos apenas para obter $p<0{,}05$.
+
+Se as variâncias forem muito distintas, a ANOVA de Welch pode ser pertinente em comparações de um fator com grupos independentes. Ela não corrige pseudorreplicação. Respostas limitadas entre 0 e 100\%, sobretudo próximas das bordas, podem exigir outra estrutura de distribuição. Neste experimento, os valores ficam suficientemente afastados das bordas para explorar o modelo normal, com diagnóstico obrigatório.
+
+\section{Quando o ambiente sugere blocos}
+No \textbf{Delineamento em Blocos Casualizados (DBC)}, unidades são agrupadas em blocos de condições relativamente semelhantes; todos os tratamentos aparecem em cada bloco e são casualizados dentro dele. Imagine seis blocos locais distribuídos ao longo de um gradiente topográfico. Cada bloco recebe três unidades, uma para cada tratamento. Bloqueamento reduz variação residual quando explica heterogeneidade relevante \parencite{quinn2002}.
+
+\begin{equation}Y_{ij}=\mu+\tau_i+\beta_j+\varepsilon_{ij}.\end{equation}
+O termo $\beta_j$ representa o efeito do bloco. Para $a=3$ tratamentos e $b=6$ blocos, temos 2 gl de tratamento, 5 de bloco e $(a-1)(b-1)=10$ de resíduo. O modelo introdutório é aditivo. Com uma observação por combinação, não se estima separadamente uma interação tratamento--bloco; variação dessa natureza pode aparecer no resíduo.
+
+Não se deve formar blocos depois de olhar a resposta para melhorar a significância. A identificação dos blocos pertence ao planejamento. Os blocos deste exemplo são unidades locais distintas; não se pretende estimar um ``efeito causal de topografia'' por meio de seus rótulos.
+
+\section{Exercícios da unidade}
+\begin{enumerate}
+\quest{1 | Conceitual e em R}{Identifique tratamento, resposta e unidade experimental no DIC. Confira oito recipientes por nível e ajuste o modelo.}
+\quest{2 | Numérico e em R}{Recalcule $SQ_T$, $SQ_E$, $SQ_{\mathrm{trat}}$ e F. Explique os graus de liberdade 2, 21 e 23.}
+\quest{3 | Em R e interpretação}{Examine os quatro gráficos de diagnóstico, a posição dos recipientes e Fligner. Indique quais suposições cada informação pode ou não avaliar.}
+\quest{4 | Em R}{Ajuste o DBC com bloco e tratamento. Confira o balanceamento, os graus de liberdade e explique por que a interação não é estimada separadamente.}
+\end{enumerate}
+\clearpage
+\section{Roteiro completo em R}
+\scriptunidade{04_anova.R}
+

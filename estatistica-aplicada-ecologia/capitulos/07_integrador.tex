@@ -1,0 +1,74 @@
+\chapter[Estudo integrador: comunidades amazônicas]{Estudo integrador:\\comunidades amazônicas}
+\objetivo{Percorrer uma análise reproduzível, distinguir descrição, comparação e ajuste; redigir conclusões ecológicas com estimativas, incerteza e limitações.}
+
+\section{Pergunta, base e plano de análise}
+O estudo didático pergunta como a diversidade de aves varia entre paisagens e se associa à topografia e à precipitação. A base reúne 36 localidades simuladas: 12 conservadas, 12 em mosaicos de uso do solo e 12 em restauração. Cada local contém o agregado de quatro pontos de escuta, com quatro horas totais em uma campanha. Não se utilizam os indivíduos ou pontos como réplicas de ambiente.
+
+\begin{table}[H]\centering\small
+\caption{Dicionário resumido da base de comunidades. Todas as linhas representam localidades e o grupo biológico é aves.}
+\begin{tabular}{p{.39\linewidth}p{.51\linewidth}}\toprule
+Coluna & Definição e unidade\\\midrule
+\texttt{local}, \texttt{ambiente} & Identificação única e categoria de paisagem\\
+\texttt{esforco\_horas} & Quatro horas por local\\
+\texttt{riqueza}, \texttt{abundancia} & Contagens agregadas no local\\
+\texttt{diversidade\_shannon} & Índice sintético com log natural\\
+\texttt{precipitacao\_mm} & Precipitação anual, mm\\
+\texttt{topografia\_m} & DP da elevação em janela comum, m\\
+\texttt{sazonalidade\_cv} & CV da precipitação mensal, \%\\
+\texttt{cobertura\_nativa\_pct} & Cobertura nativa no entorno, \%\\\bottomrule
+\end{tabular}\end{table}
+
+As variáveis aquáticas permanecem em bases separadas: não se atribui turbidez de igarapé a uma localidade de aves sem correspondência espacial e protocolo que justifiquem essa integração. Da mesma forma, uma matriz por espécie teria estrutura diferente da tabela com índices por local. Não há uma coluna de espécie na base agregada porque cada linha reúne a comunidade.
+
+O plano é: auditar identificadores e esforço; descrever Shannon por ambiente; visualizar a distribuição; comparar médias não ajustadas; examinar uma regressão com topografia, chuva e ambiente; redigir os resultados. A sequência não deve ser usada para procurar repetidamente um resultado significativo. As perguntas e a família de comparações precisam estar definidas.
+
+\section{Explorar sem antecipar causalidade}
+Médias e desvios-padrão resumem os grupos; quartis mostram a distribuição central. Os pontos no boxplot permitem identificar sobreposição e heterogeneidade. Não interprete um único local de diversidade alta como evidência de que todo o ambiente favorece diversidade. Também não descreva a categoria de paisagem como tratamento casualizado.
+
+\figura{u7_ambientes.pdf}{.90}{Distribuição de Shannon por ambiente em localidades simuladas. Os contrastes descrevem associações entre ambientes e resposta.}
+
+O esforço é igual, mas a detectabilidade pode variar entre ambientes. Em dados reais, disponibilidade de habitat, observador, época e acessibilidade podem influenciar tanto o grupo amostrado quanto os resultados. A amostragem probabilística, protocolos padronizados e modelos apropriados à observação precisam ser considerados antes da inferência regional.
+
+\section{Comparar médias e ajustar associações}
+A ANOVA de Shannon por ambiente testa a igualdade de médias \textbf{não ajustadas} por clima ou topografia. A estatística F pode ser usada em um estudo observacional sob as suposições do modelo; o que muda é a interpretação causal. O termo ``entre grupos'' é mais adequado que atribuir um efeito experimental ao ambiente.
+
+Após avaliar os diagnósticos, Tukey descreve as diferenças da família de três comparações. A regressão múltipla adiciona precipitação e topografia e estima contrastes condicionais aos preditores incluídos. Ela não responde exatamente à mesma pergunta que a ANOVA simples: uma comparação é marginal aos demais fatores na amostra; a outra é ajustada pelo modelo.
+
+\begin{exemplo}
+No modelo múltiplo, a equação estimada, com chuva centrada e escalonada, foi aproximadamente:
+\[
+\widehat H'=1{,}9746+0{,}02687T+0{,}02165P
+-0{,}4400I_M-0{,}2884I_R.
+\]
+Para Conservado, $I_M=I_R=0$; para Mosaico, $I_M=1$ e $I_R=0$; para Restauração, o inverso. Essas diferenças são estimativas para dados simulados, condicionadas à estrutura escolhida.
+\end{exemplo}
+
+Cobertura e sazonalidade estão disponíveis para ampliar a discussão, mas não são incluídas automaticamente. Mais preditores consomem informação e podem representar variáveis correlacionadas, mecanismos intermediários ou escalas incompatíveis. A escolha exige hipótese, suporte amostral e avaliação da colinearidade. Não se recomenda testar todas as combinações e apresentar apenas a melhor por valor-p.
+
+\section{Como interpretar resultados estatísticos em estudos ecológicos?}
+Comece pela unidade de análise e pelo tamanho amostral efetivo. Identifique o desenho e o método. Apresente a estimativa na escala original, com intervalo e, quando pertinente, estatística de teste, graus de liberdade e valor-p. Relacione a magnitude à pergunta ecológica e explicite as limitações que podem alterar sua interpretação.
+
+Uma redação possível é: ``Em 36 localidades simuladas, Shannon apresentou associação parcial positiva com heterogeneidade topográfica de 0,0269 por metro (IC95\% 0,0184 a 0,0354), após ajuste por chuva e ambiente. Como os ambientes foram observados, o resultado não estabelece causalidade.'' O script produz essa frase a partir dos coeficientes realmente ajustados.
+
+Evite frases como ``o valor-p prova o efeito'', ``não houve diferença porque $p>0{,}05$'' ou ``o ambiente explicou 100\% do processo''. Ausência de evidência não demonstra equivalência; um efeito estatisticamente detectável pode ser pequeno para a decisão; uma associação pode refletir variáveis omitidas. As recomendações de comunicação da ASA enfatizam que conclusões não devem depender somente de um limiar \parencite{wasserstein2016}.
+
+\begin{dica}
+Para transferir o roteiro à dissertação, escreva um parágrafo de métodos antes de executar: quais locais representam a população, como foram selecionados, qual é a unidade, quais medições se repetem, quais preditores respondem à hipótese e qual estimativa sustenta a conclusão. Se esse parágrafo estiver indefinido, o comando estatístico ainda não está pronto para uso científico.
+\end{dica}
+
+\section{Exercícios da unidade}
+\begin{enumerate}
+\quest{1 | Conceitual e em R}{Audite a base, confirme 12 locais por ambiente e esforço constante. Explique a unidade e uma limitação de detectabilidade.}
+\quest{2 | Em R}{Calcule médias, DP e quartis de Shannon por ambiente e produza o gráfico com observações individuais.}
+\quest{3 | Em R e interpretação}{Ajuste ANOVA e Tukey, examine diagnósticos e interprete um contraste como associação observacional.}
+\quest{4 | Em R}{Ajuste Shannon por topografia, chuva e ambiente. Compare o significado dos coeficientes com o da ANOVA não ajustada.}
+\quest{5 | Síntese}{Redija um resultado com tamanho amostral, coeficiente parcial, IC e limite causal. Indique uma modificação necessária para aplicar o fluxo a dados repetidos ou espacialmente agrupados.}
+\end{enumerate}
+\subsection*{Produto final da atividade}
+Entregue um relatório curto com a pergunta, o desenho e a unidade de análise; uma tabela de médias e dispersão; um gráfico com observações individuais; um resultado de comparação; e a interpretação do coeficiente parcial de topografia. Acrescente uma limitação que derive do desenho, e não apenas de um aviso genérico de software.
+
+Anexe o script executado e o registro da sessão. Explique por que a comparação não ajustada entre ambientes e a regressão múltipla respondem a perguntas diferentes. A conclusão deve permanecer proporcional à evidência: dados simulados demonstram um procedimento; dados observacionais reais podem revelar associações; uma afirmação causal exige sustentação adicional do desenho e das hipóteses. A frase gerada pelo script é um ponto de partida a revisar, não uma conclusão automática para qualquer base.
+\clearpage
+\section{Roteiro completo em R}
+\scriptunidade{07_integrador.R}
+

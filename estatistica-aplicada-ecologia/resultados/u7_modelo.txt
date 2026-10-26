@@ -1,0 +1,23 @@
+
+Call:
+lm(formula = diversidade_shannon ~ topografia_m + chuva_100mm + 
+    ambiente, data = d)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.28298 -0.13331  0.02108  0.11016  0.33318 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          1.974637   0.082931  23.811  < 2e-16 ***
+topografia_m         0.026867   0.004159   6.459 3.35e-07 ***
+chuva_100mm          0.021645   0.006876   3.148 0.003620 ** 
+ambienteMosaico     -0.440043   0.068705  -6.405 3.90e-07 ***
+ambienteRestauracao -0.288373   0.066820  -4.316 0.000151 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1619 on 31 degrees of freedom
+Multiple R-squared:  0.7463,	Adjusted R-squared:  0.7136 
+F-statistic:  22.8 on 4 and 31 DF,  p-value: 7.338e-09
+

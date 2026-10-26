@@ -1,0 +1,66 @@
+During startup - Warning message:
+Using locale code page other than 65001 ("UTF-8") may cause problems. 
+Warning message:
+package 'ggplot2' was built under R version 4.4.3 
+[1] 0.9833333
+
+	Welch Two Sample t-test
+
+data:  x and y
+t = 5.0474, df = 20.468, p-value = 5.768e-05
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.577540 1.389127
+sample estimates:
+mean of x mean of y 
+ 6.448333  5.465000 
+
+[1] 0.577540 1.389127
+attr(,"conf.level")
+[1] 0.95
+null device 
+          1 
+
+	Shapiro-Wilk normality test
+
+data:  x
+W = 0.93808, p-value = 0.4736
+
+
+	Shapiro-Wilk normality test
+
+data:  y
+W = 0.96254, p-value = 0.8194
+
+[1] 0.2975
+
+	Paired t-test
+
+data:  pares$depois_mg_l and pares$antes_mg_l
+t = 4.0547, df = 11, p-value = 0.0019
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 0.1360082 0.4589918
+sample estimates:
+mean difference 
+         0.2975 
+
+
+	Shapiro-Wilk normality test
+
+data:  delta
+W = 0.95117, p-value = 0.6542
+
+
+     Two-sample t test power calculation 
+
+              n = 12.56984
+          delta = 0.7
+             sd = 0.6
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number in *each* group
+
+[1] 13

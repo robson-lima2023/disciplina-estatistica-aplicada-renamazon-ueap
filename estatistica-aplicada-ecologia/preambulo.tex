@@ -1,0 +1,48 @@
+\usepackage{float,csquotes}
+\usepackage[backend=bibtex,style=authoryear,maxcitenames=2]{biblatex}
+\addbibresource{referencias.bib}
+
+\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{1}
+\setlength{\headheight}{28pt}
+\fancyhead[L]{\small\textcolor{UEAPDarkGreen}{Estatística Aplicada | RENAmazon}}
+\fancyhead[R]{\small\textcolor{UEAPDarkGreen}{Unidade \thechapter}}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[L]{\small Robson Borges de Lima}\fancyfoot[R]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+\lstdefinestyle{roteiro}{style=ueapRstyle,basicstyle=\ttfamily\fontsize{9}{10.5}\selectfont,
+  aboveskip=8pt,belowskip=8pt,xleftmargin=5pt,xrightmargin=5pt,
+  frame=l,rulecolor=\color{UEAPDarkGreen},framesep=7pt}
+\newcommand{\scriptunidade}[1]{\begingroup\singlespacing\lstinputlisting[style=roteiro]{scripts_r/#1}\endgroup}
+\newcommand{\figura}[3]{\begin{figure}[H]\centering\includegraphics[width=#2\linewidth]{figuras/#1}\caption{#3}\end{figure}}
+\newcommand{\objetivo}[1]{\begin{objetivos}#1\end{objetivos}}
+\newcommand{\quest}[2]{\item[]\textbf{#1.} #2}
+\newcommand{\dadosimulados}{\textit{Dados simulados para ensino; não representam levantamentos de campo.}}
+\hypersetup{pdftitle={Estatística Aplicada à Ecologia, Biodiversidade e Recursos Naturais Amazônicos},pdfauthor={Robson Borges de Lima},linkcolor=UEAPDarkBlue}
+
+% Adaptação local da capa: preserva faixa, paleta e brasão do template.
+% Corrige a posição do texto lateral e acomoda o título mais longo.
+\renewcommand{\capaueap}{
+\begin{titlepage}\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+\fill[UEAPDarkGreen] (current page.north west) rectangle ([xshift=1.05cm]current page.south west);
+\fill[UEAPGold] ([xshift=1.05cm]current page.north west) rectangle ([xshift=1.15cm]current page.south west);
+\node[rotate=90,text=white,font=\bfseries\scriptsize] at ([xshift=.52cm]current page.west) {UEAP\quad |\quad MATERIAL DIDÁTICO};
+\end{tikzpicture}
+\hspace*{.6cm}\begin{minipage}{.94\textwidth}
+\begin{minipage}{.72\linewidth}
+{\Large\bfseries\color{UEAPDarkGreen}Universidade do Estado do Amapá}\\[8pt]
+{\small Colegiado de Engenharia Florestal\\Programa de Pós-graduação em\\Recursos Naturais Amazônicos}
+\end{minipage}\hfill\begin{minipage}{.22\linewidth}\includegraphics[width=\linewidth]{Brasao_UEAP.png}\end{minipage}
+\vspace{2cm}
+{\small\bfseries\color{UEAPGold}APOSTILA DE APOIO DIDÁTICO}\par\vspace{.45cm}
+{\fontsize{25}{30}\selectfont\bfseries\color{UEAPDarkBlue}Estatística Aplicada\\à Ecologia, Biodiversidade\\e Recursos Naturais\\Amazônicos\par}
+\vspace{.65cm}{\large\color{UEAPDarkGreen}Fundamentos, métodos estatísticos\\e aplicações práticas em R}\par
+\vspace{.6cm}{\color{UEAPGold}\rule{.85\linewidth}{1.2pt}}
+\vspace{.6cm}\par{\large\bfseries Prof. Dr. Robson Borges de Lima}\par
+\vspace{.2cm}{\small\href{mailto:robson.lima@ueap.edu.br}{robson.lima@ueap.edu.br}}
+\vspace{1cm}
+\begin{tcolorbox}[colback=UEAPLightGray,colframe=UEAPDarkGreen,boxrule=.5pt,arc=1mm]
+\textbf{Aprender com perguntas ecológicas.} Sete unidades com fundamentos, exemplos interpretados, exercícios progressivos e scripts comentados. Dados e análises reproduzíveis para uma formação multidisciplinar.
+\end{tcolorbox}
+\vspace{.7cm}{\small Macapá, Amapá | 2026\\Versão didática 1.0}
+\end{minipage}\end{titlepage}}
+

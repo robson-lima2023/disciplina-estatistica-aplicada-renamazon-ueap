@@ -1,0 +1,61 @@
+\chapter{Da pergunta ecológica aos dados}
+\objetivo{Distinguir população e amostra; reconhecer variáveis, unidades e réplicas; organizar uma base e delimitar o alcance de uma conclusão.}
+
+\section{Uma pergunta antes de um teste}
+Como a diversidade de aves varia com a topografia? Igarapés em paisagens conservadas apresentam mais oxigênio dissolvido? A umidade modifica a decomposição? Essas perguntas envolvem respostas diferentes, coletadas em escalas distintas. A estatística ajuda a resumir a variação, estimar associações e avaliar quanto os dados são compatíveis com hipóteses. Ela não substitui o planejamento de campo.
+
+A \textbf{estatística descritiva} organiza o que foi observado: quantos locais, quais valores, quanta dispersão. A \textbf{inferência} utiliza amostras e modelos para discutir quantidades de uma população ou de um processo. Uma média bem calculada em locais escolhidos apenas pela facilidade de acesso pode ser uma boa descrição desses locais e uma estimativa enviesada da região.
+
+\begin{conceito}
+\textbf{População} é o conjunto ao qual a pergunta se refere, delimitado no espaço, no tempo e no critério de inclusão. \textbf{Amostra} é a parte observada. Um \textbf{parâmetro}, como a média populacional $\mu$, descreve a população; um \textbf{estimador}, como $\bar{x}$, é uma regra calculada com a amostra. A estimativa é o valor obtido em uma amostra específica.
+\end{conceito}
+
+Se a população de interesse são os igarapés de pequenas bacias de uma região na estação seca, não se deve estender automaticamente a conclusão a grandes rios ou à cheia. Definir a população também ajuda a reconhecer quais ambientes ficaram fora do levantamento.
+
+\section{Variáveis, unidades e escalas}
+Uma variável é uma característica registrada por unidade de observação. A \textbf{qualitativa nominal} distingue categorias sem ordem, como tipo de ambiente; a \textbf{ordinal} admite uma ordem, como classes previamente definidas de perturbação. A \textbf{quantitativa discreta} é uma contagem, como riqueza observada; a \textbf{contínua} expressa uma medida, como oxigênio em mg/L. Um número usado como código de local não se torna uma variável quantitativa por estar escrito com algarismos.
+
+\begin{table}[H]\centering\small
+\caption{Da pergunta à informação necessária.}
+\begin{tabular}{p{.27\linewidth}p{.28\linewidth}p{.35\linewidth}}
+\toprule Pergunta & Resposta & Unidade de análise\\\midrule
+Diversidade e relevo & Shannon por local & Localidade, com esforço padronizado\\
+Qualidade da água & Oxigênio em mg/L & Igarapé, após agregar leituras técnicas\\
+Umidade e decomposição & Perda de massa em \% & Recipiente com tratamento independente\\
+Clima e riqueza & Número de espécies & Local com informação climática apropriada\\\bottomrule
+\end{tabular}\end{table}
+
+As unidades acompanham os valores. Precipitação anual em milímetros não é intercambiável com precipitação de um único mês. A heterogeneidade topográfica deste material é o desvio-padrão da elevação, em metros, dentro de uma janela espacial comum a todos os locais. Não é a elevação média nem uma classe de relevo.
+
+\section{Replicação e independência}
+A \textbf{unidade amostral} é a unidade selecionada pelo plano de amostragem; a \textbf{unidade experimental} recebe o tratamento de modo independente. Três leituras do oxímetro no mesmo igarapé são repetições técnicas: ajudam a reduzir erro de medição, mas não representam três igarapés. Quatro pontos de escuta dentro de uma localidade também não garantem quatro réplicas independentes de um atributo medido apenas para essa localidade.
+
+\begin{exemplo}
+Em 24 igarapés, três leituras técnicas por igarapé geram 72 registros instrumentais. Ao comparar ambientes na escala do igarapé, pode-se usar uma média por igarapé: $n=24$. Usar $n=72$ como se todas as leituras fossem independentes subestima a incerteza e caracteriza pseudorreplicação.
+\end{exemplo}
+
+A independência depende do desenho e do processo ecológico. Locais próximos podem compartilhar condições; visitas sucessivas podem ter autocorrelação. Aumentar a distância não garante independência para qualquer organismo ou variável. Dados agrupados ou repetidos podem exigir modelos que estão além desta introdução.
+
+Na \textbf{amostragem observacional}, o pesquisador registra as condições existentes. Na \textbf{experimentação}, manipula tratamentos e os aloca às unidades. A seleção aleatória de locais favorece representatividade; a alocação aleatória de tratamentos favorece a comparação causal. São operações diferentes. Em um DIC de decomposição, os recipientes devem receber a umidade individualmente: uma única câmara por nível de umidade confundiria tratamento e câmara.
+
+\section{Uma base que permita auditoria}
+Use uma linha por unidade e uma coluna por variável; nomes consistentes, identificadores únicos e um dicionário com definições. Registre datas, esforço, protocolo e ausências. Zero é um valor observado; \texttt{NA} indica falta de informação. Em geral, riqueza zero em uma visita não demonstra ausência de espécies no local.
+
+A base principal contém 36 localidades simuladas, 12 por ambiente, com quatro horas de amostragem agregadas por local. A diversidade de Shannon usa logaritmo natural:
+\begin{equation}H'=-\sum_{s=1}^{S}p_s\ln p_s,\qquad p_s=n_s/\sum_s n_s.\end{equation}
+Aqui, $n_s$ é a abundância da espécie $s$, $S$ é a riqueza observada e termos com $p_s=0$ contribuem zero. $H'$ combina riqueza e distribuição das abundâncias; comunidades com a mesma riqueza podem ter diversidades distintas. Na simulação, $H'$ é uma resposta sintética coerente com $H'\leq\ln S$, sem uma matriz de espécies de campo subjacente.
+
+Esforço igual reduz uma fonte de desigualdade, mas não assegura detectabilidade igual. Chuva, observador e comportamento das aves podem alterar os registros. A organização e exploração inicial no R seguem os princípios apresentados em \textcite{rintro}.
+
+\section{Exercícios da unidade}
+\begin{enumerate}
+\quest{1 | Conceitual}{Classifique ambiente, riqueza, precipitação e código de local. Diferencie parâmetro de estimativa.}
+\quest{2 | Numérico}{Quatro pontos em cada uma de 36 localidades geram 144 registros. Se o clima foi medido na escala da localidade e os pontos foram agregados, qual é o tamanho amostral da análise entre localidades?}
+\quest{3 | Em R}{Verifique ausências, duplicação de identificadores e a coerência $H'\leq\ln S$. Explique por que essas verificações não demonstram representatividade.}
+\quest{4 | Em R e interpretação}{Exporte local, ambiente e riqueza. Descreva a unidade, o esforço e uma limitação de inferência para essa tabela.}
+\end{enumerate}
+\clearpage
+\section{Roteiro completo em R}
+Execute a partir da pasta do projeto. O roteiro responde aos quatro exercícios; comentários conceituais também fazem parte da resolução.
+\scriptunidade{01_fundamentos.R}
+

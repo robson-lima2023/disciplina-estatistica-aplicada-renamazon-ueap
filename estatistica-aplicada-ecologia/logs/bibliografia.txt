@@ -1,0 +1,6 @@
+This is BibTeX, Version 0.99e (MiKTeX 25.12)
+The top-level auxiliary file: main.aux
+The style file: biblatex.bst
+Database file #1: main-blx.bib
+Database file #2: referencias.bib
+Biblatex version: 3.21

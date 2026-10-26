@@ -1,0 +1,72 @@
+\chapter{Regressão e gradientes ambientais}
+\objetivo{Ajustar e interpretar regressão simples e múltipla; examinar resíduos e influência; distinguir incerteza da média, predição individual e associação causal.}
+
+\section{Uma resposta ao longo de um gradiente}
+A correlação resume a intensidade e a direção de uma associação, sem atribuir papéis de resposta e explicação. A regressão explicita esses papéis e modela a resposta média condicionada aos preditores. Na base de aves, a pergunta é: como a diversidade de Shannon se associa à heterogeneidade topográfica entre localidades?
+
+A resposta $Y$ é Shannon, calculado com logaritmo natural. O preditor $X$ é o desvio-padrão da elevação, em metros, em uma janela espacial definida pelo protocolo. A comparação exige a mesma escala espacial e esforço amostral comparável. Os 36 locais são independentes no cenário simulado; em campo, essa condição precisa ser investigada a partir do desenho e dos processos ecológicos.
+
+\begin{equation}Y_i=\beta_0+\beta_1X_i+\varepsilon_i.\end{equation}
+$\beta_0$ é o valor médio previsto quando $X=0$; $\beta_1$ é a variação média da resposta para uma unidade adicional de $X$; $\varepsilon_i$ reúne desvios em torno da média condicional. A equação descreve uma relação estatística, não uma lei funcional determinística. Se $X=0$ estiver fora do domínio observado, o intercepto é necessário ao ajuste, mas pode ter interpretação ecológica limitada.
+
+\section{Mínimos quadrados e qualidade do ajuste}
+O método dos mínimos quadrados escolhe os coeficientes que minimizam $\sum_i(y_i-\widehat y_i)^2$. No modelo simples com intercepto:
+\begin{equation}\widehat\beta_1=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}
+{\sum_i(x_i-\bar x)^2},\qquad
+\widehat\beta_0=\bar y-\widehat\beta_1\bar x.\end{equation}
+O valor ajustado é $\widehat y_i=\widehat\beta_0+\widehat\beta_1x_i$ e o resíduo é $e_i=y_i-\widehat y_i$. Resíduo observado e erro populacional são conceitos relacionados, mas não idênticos: o primeiro depende dos coeficientes estimados na própria amostra.
+
+\begin{equation}R^2=1-\frac{\sum_i e_i^2}{\sum_i(y_i-\bar y)^2},
+\qquad RMSE=\sqrt{\frac{1}{n}\sum_i e_i^2}.\end{equation}
+Com intercepto, $R^2$ descreve a fração da variação amostral em torno da média explicada pelo modelo ajustado. Não é a probabilidade de o modelo estar correto nem uma medida de causalidade. O RMSE está na escala da resposta. Aqui usamos divisor $n$ para o erro de ajuste; o erro-padrão residual do R usa os graus de liberdade, $n-p$, com $p$ coeficientes estimados, incluindo o intercepto.
+
+Um modelo pode ajustar bem os dados usados na estimação e prever mal novos locais. O RMSE desta unidade é de ajuste, não de validação externa. Modelos destinados à previsão científica precisam de avaliação preditiva compatível com a estrutura espacial e temporal, além da inspeção de resíduos.
+
+No ajuste simples executado, $\widehat H'=1{,}77292+0{,}02601T$, com $R^2=0{,}3716$ e RMSE de 0,2365. A inclinação corresponde a aproximadamente 0,026 unidade de Shannon por metro adicional de heterogeneidade, antes do ajuste pelos demais preditores.
+\figura{u6_regressao.pdf}{.92}{Diversidade e topografia em 36 localidades simuladas. A faixa representa IC95\% pontual da resposta média; não é intervalo para uma nova observação.}
+
+\section{Diagnósticos e limites}
+A \textbf{linearidade} se refere à forma da média condicional; a \textbf{homocedasticidade}, à variância aproximadamente constante dos erros. A normalidade é relevante para a inferência clássica exata em pequenas amostras, não uma exigência de que cada preditor tenha distribuição normal. A independência não pode ser garantida por um Q--Q satisfatório.
+
+Resíduos versus ajustados podem mostrar curvatura, grupos omitidos ou dispersão desigual. O Q--Q ajuda a avaliar caudas e assimetria. A distância de Cook combina discrepância e influência sobre o ajuste; um local extremo no preditor pode ter alta alavancagem mesmo com resíduo pequeno. Investigue erros, contexto e sensibilidade antes de excluir qualquer observação. A exploração estruturada ajuda a reconhecer problemas de variância, dependência e colinearidade antes da inferência \parencite{zuur2010}.
+
+No exemplo, diferenças entre ambientes também contribuem para a resposta. A regressão simples é útil para introduzir a técnica, mas não isola a topografia de outros fatores. O modelo múltiplo a seguir incorpora ambiente e precipitação definidos pela pergunta; não seleciona automaticamente variáveis por valor-p.
+
+\section{Confiança e predição}
+O IC da média em $x_0$ descreve incerteza sobre $E(Y\mid X=x_0)$. O intervalo de predição de um novo local acrescenta a variação residual individual. Para o modelo simples normal:
+\begin{align}
+IC:\quad &\widehat y_0\pm t\,s_e\sqrt{h_0},\\
+IP:\quad &\widehat y_0\pm t\,s_e\sqrt{1+h_0},
+\end{align}
+em que $s_e$ é o erro-padrão residual e $h_0=1/n+(x_0-\bar x)^2/\sum_i(x_i-\bar x)^2$. O quantil t usa o nível de confiança e os graus de liberdade correspondentes. Os intervalos são pontuais e condicionados à adequação do modelo.
+
+Para heterogeneidade topográfica de 15 m, o modelo simples forneceu $\widehat H'=2{,}163$, IC95\% de 2,080 a 2,246 e IP95\% de 1,662 a 2,665. A predição é mais ampla porque inclui a variação entre novos locais. Prever fora do intervalo observado é extrapolar; mesmo uma reta bem ajustada pode falhar fora de sua faixa de suporte.
+
+\section{Uma introdução à regressão múltipla}
+Defina $P=(\text{precipitação}-2400)/100$: zero significa 2400 mm e uma unidade corresponde a 100 mm. Um modelo possível é:
+\begin{equation}H'_i=\beta_0+\beta_1T_i+\beta_2P_i+
+\gamma_1I_{M,i}+\gamma_2I_{R,i}+\varepsilon_i,\end{equation}
+com $T$ representando topografia, $I_M$ um indicador de mosaico e $I_R$ de restauração. Conservado é a referência. O coeficiente de topografia passa a representar uma associação parcial, mantendo os demais preditores constantes no modelo. Combinações de condições com pouco suporte amostral precisam de cautela mesmo sem extrapolação univariada.
+
+No ajuste executado, o coeficiente parcial foi 0,02687 por metro (IC95\% 0,01838 a 0,03535); o de chuva, 0,02165 por 100 mm. A comparação Mosaico menos Conservado foi $-0{,}4400$, ajustada por chuva e topografia. A inclusão desses termos não elimina todo confundimento nem converte o desenho observacional em experimento.
+
+\begin{atencao}
+Riqueza em função da precipitação e da sazonalidade é uma pergunta ecológica importante, mas riqueza é contagem. Um modelo linear generalizado pode ser mais apropriado que \texttt{lm()}, dependendo da distribuição, dispersão, esforço e desenho. Não copie o modelo de Shannon para riqueza sem revisar essas condições. Evitamos desenvolver modelos avançados nesta introdução.
+\end{atencao}
+
+\section{Exercícios da unidade}
+\begin{enumerate}
+\quest{1 | Em R}{Construa a dispersão entre Shannon e topografia. Descreva o padrão e a definição da variável explicativa.}
+\quest{2 | Numérico e em R}{Obtenha equação ajustada, IC dos coeficientes, $R^2$ e RMSE. Interprete a inclinação e a limitação do intercepto.}
+\quest{3 | Em R}{Examine os diagnósticos e identifique a observação de maior distância de Cook. Explique por que isso não autoriza exclusão automática.}
+\quest{4 | Em R}{Para 15 m, compare IC da média e intervalo de predição. Verifique antes a faixa observada.}
+\quest{5 | Em R e interpretação}{Ajuste o modelo múltiplo com chuva e ambiente. Interprete o coeficiente parcial de topografia e explique por que riqueza pode exigir outro modelo.}
+\end{enumerate}
+\subsection*{Oficina de interpretação do modelo}
+Leia a tabela de coeficientes junto com os nomes das variáveis. No modelo múltiplo, chuva foi dividida por 100 depois de centrada; portanto, seu coeficiente não representa a variação por 1 mm. Para ambiente, cada coeficiente compara uma categoria com a referência Conservado, mantendo os demais preditores constantes.
+
+Compare a inclinação simples com a parcial, seus intervalos e o diagnóstico de cada modelo. Uma mudança de coeficiente pode sinalizar diferenças de composição entre locais, mas não identifica sozinha um mecanismo causal. O roteiro também salva o diagnóstico do modelo múltiplo. Examine-o antes de usar a interpretação ajustada. Ao adaptar o código, revise o intervalo observado de cada preditor e não obtenha predições para combinações ambientais inexistentes na amostra apenas porque o R aceita o comando.
+\clearpage
+\section{Roteiro completo em R}
+\scriptunidade{06_regressao.R}
+

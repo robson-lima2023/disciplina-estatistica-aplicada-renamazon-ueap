@@ -1,0 +1,15 @@
+# Arquivos locais e temporários de R e LaTeX
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.aux
+*.log
+*.out
+*.toc
+*.run.xml
+*.synctex.gz
+*.blg
+*-blx.bib
+Rplots.pdf
+tmp/

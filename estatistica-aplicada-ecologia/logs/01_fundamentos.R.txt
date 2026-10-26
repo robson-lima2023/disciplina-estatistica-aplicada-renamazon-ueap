@@ -1,0 +1,105 @@
+
+> dados <- read.csv("dados/comunidades_amazonicas.csv")
+
+> head(dados)
+  local   ambiente esforco_horas grupo riqueza abundancia diversidade_shannon
+1   L01 Conservado             4  Aves      13         65               2.365
+2   L02 Conservado             4  Aves      15         73               2.444
+3   L03 Conservado             4  Aves      13         72               2.386
+4   L04 Conservado             4  Aves      21         81               2.922
+5   L05 Conservado             4  Aves      13         68               2.384
+6   L06 Conservado             4  Aves      16         65               2.605
+  precipitacao_mm topografia_m sazonalidade_cv cobertura_nativa_pct
+1            2027         26.0            53.2                 89.7
+2            2769         15.5            30.5                 84.7
+3            1829         16.3            41.0                 41.0
+4            2881         26.6            50.9                 52.0
+5            1999         29.0            37.0                 61.7
+6            2881         13.3            49.1                 37.0
+
+> str(dados)
+'data.frame':	36 obs. of  11 variables:
+ $ local               : chr  "L01" "L02" "L03" "L04" ...
+ $ ambiente            : chr  "Conservado" "Conservado" "Conservado" "Conservado" ...
+ $ esforco_horas       : int  4 4 4 4 4 4 4 4 4 4 ...
+ $ grupo               : chr  "Aves" "Aves" "Aves" "Aves" ...
+ $ riqueza             : int  13 15 13 21 13 16 11 17 14 20 ...
+ $ abundancia          : int  65 73 72 81 68 65 61 87 73 62 ...
+ $ diversidade_shannon : num  2.37 2.44 2.39 2.92 2.38 ...
+ $ precipitacao_mm     : int  2027 2769 1829 2881 1999 2881 1840 2578 2279 3043 ...
+ $ topografia_m        : num  26 15.5 16.3 26.6 29 13.3 17.5 10.9 14.3 15 ...
+ $ sazonalidade_cv     : num  53.2 30.5 41 50.9 37 49.1 21.8 20.5 39.4 45.4 ...
+ $ cobertura_nativa_pct: num  89.7 84.7 41 52 61.7 37 47.3 75.8 34.6 50.1 ...
+
+> summary(dados)
+    local             ambiente         esforco_horas    grupo          
+ Length:36          Length:36          Min.   :4     Length:36         
+ Class :character   Class :character   1st Qu.:4     Class :character  
+ Mode  :character   Mode  :character   Median :4     Mode  :character  
+                                       Mean   :4                       
+                                       3rd Qu.:4                       
+                                       Max.   :4                       
+    riqueza        abundancia    diversidade_shannon precipitacao_mm
+ Min.   : 9.00   Min.   :51.00   Min.   :1.685       Min.   :1825   
+ 1st Qu.:13.00   1st Qu.:65.00   1st Qu.:1.941       1st Qu.:2035   
+ Median :14.50   Median :69.50   Median :2.127       Median :2666   
+ Mean   :15.14   Mean   :69.42   Mean   :2.185       Mean   :2527   
+ 3rd Qu.:17.00   3rd Qu.:73.00   3rd Qu.:2.385       3rd Qu.:2881   
+ Max.   :29.00   Max.   :87.00   Max.   :2.922       Max.   :3076   
+  topografia_m   sazonalidade_cv cobertura_nativa_pct
+ Min.   : 4.40   Min.   :20.50   Min.   :31.90       
+ 1st Qu.:10.10   1st Qu.:28.82   1st Qu.:45.60       
+ Median :15.10   Median :37.85   Median :59.30       
+ Mean   :15.83   Mean   :37.72   Mean   :59.49       
+ 3rd Qu.:17.75   3rd Qu.:47.83   3rd Qu.:72.72       
+ Max.   :30.00   Max.   :54.40   Max.   :91.60       
+
+> dados$ambiente <- factor(dados$ambiente)
+
+> print(levels(dados$ambiente))
+[1] "Conservado"  "Mosaico"     "Restauracao"
+
+> nrow(dados)
+[1] 36
+
+> length(unique(dados$local))
+[1] 36
+
+> table(dados$ambiente)
+
+ Conservado     Mosaico Restauracao 
+         12          12          12 
+
+> table(dados$esforco_horas)
+
+ 4 
+36 
+
+> colSums(is.na(dados))
+               local             ambiente        esforco_horas 
+                   0                    0                    0 
+               grupo              riqueza           abundancia 
+                   0                    0                    0 
+ diversidade_shannon      precipitacao_mm         topografia_m 
+                   0                    0                    0 
+     sazonalidade_cv cobertura_nativa_pct 
+                   0                    0 
+
+> anyDuplicated(dados$local)
+[1] 0
+
+> range(dados$riqueza)
+[1]  9 29
+
+> range(dados$diversidade_shannon)
+[1] 1.685 2.922
+
+> all(dados$diversidade_shannon <= log(dados$riqueza))
+[1] TRUE
+
+> consulta <- dados[, c("local", "ambiente", "riqueza")]
+
+> dir.create("resultados", showWarnings = FALSE)
+
+> write.csv(consulta, "resultados/u1_consulta.csv", 
++     row.names = FALSE)

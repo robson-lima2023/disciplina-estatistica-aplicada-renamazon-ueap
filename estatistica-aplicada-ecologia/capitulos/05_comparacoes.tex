@@ -1,0 +1,64 @@
+\chapter{Comparar médias com critério}
+\objetivo{Distinguir teste global de comparações específicas; interpretar Tukey, contrastes e intervalos; manter a magnitude ecológica no centro da conclusão.}
+
+\section{Uma pergunta global e perguntas específicas}
+O teste F responde se todas as médias são compatíveis com a igualdade sob o modelo. Para três tratamentos, há três comparações par a par: Média--Baixa, Alta--Baixa e Alta--Média. Uma rejeição global não significa que todos os pares diferem. Comparações planejadas expressam perguntas formuladas antes de observar os dados; análises pós-hoc exploram diferenças dentro de uma família de comparações definida e precisam de interpretação compatível.
+
+Fazer vários testes sem ajuste eleva a probabilidade de pelo menos um falso positivo na família. Para $m$ testes independentes de nível $\alpha$, essa probabilidade seria $1-(1-\alpha)^m$ quando todas as nulas fossem verdadeiras. Comparações que compartilham médias não são independentes; a expressão ilustra o problema, mas não calcula seu risco exato nesses casos.
+
+\begin{conceito}
+O controle do erro familiar procura limitar a probabilidade de ao menos uma rejeição indevida em uma família de hipóteses. Defina a família pela pergunta científica. A multiplicidade não desaparece ao selecionar apenas as comparações com valores-p menores.
+\end{conceito}
+
+Uma estratégia didática é começar pelo F global e então examinar Tukey. Contudo, o procedimento de Tukey já foi construído para controlar a família de comparações e não depende matematicamente de uma rejeição prévia do F. Relate a estratégia escolhida sem transformar regras operacionais em exigências universais.
+
+\section{Teste de Tukey e intervalos simultâneos}
+O método de Tukey compara todos os pares de médias usando a distribuição da amplitude studentizada. Para o desenho balanceado, com $n$ unidades por grupo, a diferença mínima associada ao procedimento tem a forma:
+\begin{equation}D_{\mathrm{Tukey}}=q_{1-\alpha;a,\nu}\sqrt{QM_E/n},\end{equation}
+em que $a$ é o número de grupos e $\nu$ os graus de liberdade residuais. Os intervalos das diferenças são $\bar y_i-\bar y_j\pm D_{\mathrm{Tukey}}$. O uso do mesmo erro residual pressupõe a adequação do modelo com variância comum. O R incorpora uma adaptação para tamanhos amostrais diferentes; desequilíbrios fortes e heterogeneidade exigem atenção adicional \parencite{rtukey}.
+
+\begin{table}[H]\centering\small
+\caption{Diferenças de perda de massa no DIC, em pontos percentuais, com IC95\% simultâneos de Tukey.}
+\begin{tabular}{lrrr}\toprule
+Comparação & Diferença & Limite inferior & Limite superior\\\midrule
+Média menos Baixa & 7,775 & 2,390 & 13,160\\
+Alta menos Baixa & 17,624 & 12,239 & 23,009\\
+Alta menos Média & 9,849 & 4,464 & 15,234\\\bottomrule
+\end{tabular}\end{table}
+
+Os três intervalos excluem zero. O contraste mais amplo, Alta menos Baixa, indica maior perda média em umidade alta, de aproximadamente 17,6 pontos percentuais. Trata-se de uma diferença entre porcentagens, não de aumento relativo de 17,6\%. Um aumento relativo exigiria dividir a diferença pela média de referência.
+
+A interpretação ecológica é restrita ao período, substrato e condições representados pelo experimento. Maior perda de massa sugere decomposição mais intensa, mas não mede diretamente toda a ciclagem de nutrientes, a mineralização ou a comunidade decompositora. Um mecanismo plausível precisa ser distinguido de uma variável efetivamente medida.
+
+\section{Médias, intervalos e letras}
+Um gráfico de médias com intervalos de confiança informa localização e precisão. Os IC95\% individuais de cada média não são os mesmos que os intervalos simultâneos das diferenças de Tukey. A sobreposição entre IC individuais não determina, por inspeção, o resultado do teste para uma diferença.
+
+\figura{u5_medias.pdf}{.85}{Médias de perda de massa e IC95\% individuais calculados com o quadrado médio residual do DIC. Para as comparações simultâneas, utilize a tabela de diferenças de Tukey.}
+
+Letras de agrupamento resumem decisões binárias, mas ocultam magnitude e incerteza. Compartilhar uma letra indica que o procedimento não encontrou evidência suficiente de diferença naquele nível; não demonstra equivalência. Não compartilhar letras não informa se a diferença é ecologicamente importante. Nesta apostila, priorizamos estimativas e intervalos; as letras não são necessárias para compreender os resultados.
+
+\section{Contrastes: a hipótese em forma de diferença}
+Um contraste é uma combinação linear de médias com coeficientes que somam zero:
+\begin{equation}L=\sum_i c_i\mu_i,\qquad\sum_i c_i=0.\end{equation}
+Para Alta menos Baixa, na ordem Baixa, Média, Alta, use $c=(-1,0,1)$. Sob o modelo independente com variância comum:
+\begin{equation}\widehat{EP}(\widehat L)=\sqrt{QM_E\sum_i c_i^2/n_i},
+\qquad t=\widehat L/\widehat{EP}(\widehat L).\end{equation}
+No DIC, o erro-padrão desse contraste é aproximadamente 2,136 pontos percentuais. Um único contraste previamente definido pode ser analisado como uma pergunta única. Se vários contrastes integram a mesma família, planeje o controle de multiplicidade. Não descreva como planejado um contraste escolhido por apresentar a maior diferença observada.
+
+O pacote \texttt{emmeans} é útil para médias ajustadas e contrastes em modelos mais elaborados. Para evitar dependências adicionais nesta introdução, o script explicita o cálculo do contraste no desenho balanceado. A fórmula não deve ser transferida sem revisão para modelos mistos, dados dependentes ou outros estimadores de variância.
+
+\section{Exercícios da unidade}
+\begin{enumerate}
+\quest{1 | Conceitual e em R}{Explique a diferença entre rejeitar a nula global e identificar um par distinto. Ajuste novamente o DIC.}
+\quest{2 | Numérico e em R}{Obtenha Tukey. Para Alta--Baixa, interprete diferença, intervalo e valor-p ajustado; explique a unidade ``pontos percentuais''.}
+\quest{3 | Em R e interpretação}{Produza o gráfico das médias com IC individuais. Explique por que ele não substitui os IC simultâneos das diferenças.}
+\quest{4 | Em R}{Calcule o contraste Alta menos Baixa com a fórmula apresentada. Explique em que situação pode ser tratado como uma única hipótese planejada.}
+\end{enumerate}
+\subsection*{Oficina de interpretação das comparações}
+Ao ler cada linha de Tukey, identifique a direção da subtração antes de interpretar o sinal. Depois, verifique se o intervalo inclui zero e avalie sua amplitude. Por fim, discuta a relevância ecológica da diferença. Uma ordem de leitura útil é: \textbf{qual diferença, de quanto, com quanta incerteza e para qual pergunta?}
+
+Para Alta menos Baixa, redija o resultado em pontos percentuais e explique qual processo foi medido. Compare essa frase com uma afirmação de ``maior ciclagem de nutrientes'': esta última exige medidas adicionais. Explique também por que o valor-p do contraste único pode diferir do valor-p ajustado de Tukey para o mesmo par, embora a diferença estimada seja idêntica. Os procedimentos controlam famílias distintas de hipóteses; não escolha entre eles pelo menor valor-p depois de observar os resultados.
+\clearpage
+\section{Roteiro completo em R}
+\scriptunidade{05_comparacoes.R}
+

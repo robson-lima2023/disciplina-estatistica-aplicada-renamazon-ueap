@@ -1,0 +1,22 @@
+During startup - Warning message:
+Using locale code page other than 65001 ("UTF-8") may cause problems. 
+Warning message:
+package 'ggplot2' was built under R version 4.4.3 
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+tratamento   2 1248.1   624.1   34.18 2.49e-07 ***
+Residuals   21  383.4    18.3                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = perda_pct ~ tratamento, data = dados)
+
+$tratamento
+                diff       lwr      upr     p adj
+Media-Baixa  7.77500  2.389941 13.16006 0.0041951
+Alta-Baixa  17.62375 12.238691 23.00881 0.0000001
+Alta-Media   9.84875  4.463691 15.23381 0.0004272
+
+   diferenca           EP            p 
+1.762375e+01 2.136445e+00 5.019640e-08 

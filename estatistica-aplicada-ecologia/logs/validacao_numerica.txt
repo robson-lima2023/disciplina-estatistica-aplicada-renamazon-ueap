@@ -1,0 +1,1 @@
+VALIDADO: estrutura, limites biologicos, Welch, ANOVA e regressao.

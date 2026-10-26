@@ -1,0 +1,45 @@
+\documentclass{ueap-apostila}
+\input{preambulo}
+\title{Estatística Aplicada à Ecologia, Biodiversidade e Recursos Naturais Amazônicos}
+\autor{Robson Borges de Lima}
+\disciplina{Estatística Aplicada}
+\let\cleardoublepage\clearpage
+\begin{document}
+\hypersetup{pageanchor=false}
+\capaueap
+\frontmatter
+\fancyhead[R]{\small\textcolor{UEAPDarkGreen}{Orientações e sumário}}
+\hypersetup{pageanchor=true}
+\renewcommand{\contentsname}{Sumário}
+\chapter*{Como estudar com esta apostila}
+\addcontentsline{toc}{chapter}{Como estudar com esta apostila}
+Esta apostila foi preparada para estudantes de Recursos Naturais Amazônicos com diferentes formações. O ponto de partida é uma pergunta sobre o ambiente, seguida da definição da unidade amostral, da escolha de medidas e da avaliação da incerteza. A programação aparece como instrumento para tornar esse raciocínio verificável.
+
+Cada unidade reúne fundamentos, um exemplo interpretado, exercícios e, ao final, um script completo. Leia a explicação, tente responder às questões e execute o roteiro por blocos. Os comentários identificam as atividades e explicam as escolhas. Os mesmos arquivos \texttt{.R} impressos aqui estão na pasta \texttt{scripts\_r}; assim, a versão digital e a versão executável permanecem sincronizadas.
+
+\begin{atencao}
+Todos os conjuntos de dados desta edição são \textbf{simulados}. Servem para ensinar procedimentos, não para descrever a biodiversidade real do Amapá ou estimar efeitos ambientais regionais. Resultados numéricos apresentados foram obtidos executando os arquivos que acompanham o projeto.
+\end{atencao}
+
+\textbf{Primeiros passos em R.} Abra \texttt{estatistica-aplicada-ecologia.Rproj} no RStudio. Instale \texttt{ggplot2} uma única vez com \texttt{install.packages("ggplot2")}. Abra o script da unidade e execute uma linha ou seleção com Ctrl+Enter. \texttt{<-} guarda um resultado; \texttt{\$} seleciona uma coluna; \texttt{c()} reúne valores; \texttt{\#} inicia um comentário. Letras maiúsculas e minúsculas são diferentes. Nomes de arquivos devem ser preservados.
+
+Os CSV usam vírgula como separador de campos e ponto decimal. Se seus arquivos usarem ponto e vírgula e vírgula decimal, considere \texttt{read.csv2()}. Confira a importação com \texttt{str()} antes de analisar. Não é necessário saber criar funções ou laços para acompanhar as sete unidades.
+
+\textbf{Para adaptar à dissertação.} A troca do arquivo de dados exige revisar a pergunta, a seleção dos locais, a independência, o esforço, as unidades, os pressupostos e os preditores. Reutilizar um comando não significa reutilizar automaticamente sua justificativa científica. Resultados de modelos devem ser acompanhados das decisões de amostragem e das limitações do estudo.
+
+\textbf{Percurso sugerido.} Unidades 1 e 2: organizar e descrever. Unidade 3: estimar diferenças e sua incerteza. Unidades 4 e 5: compreender experimentos e comparações. Unidade 6: modelar associações. Unidade 7: integrar a análise e redigir resultados. O gabarito ao final oferece respostas e critérios de interpretação.
+\tableofcontents
+\mainmatter
+\fancyhead[R]{\small\textcolor{UEAPDarkGreen}{Unidade \thechapter}}
+\include{capitulos/01_fundamentos}
+\include{capitulos/02_descritiva}
+\include{capitulos/03_inferencia}
+\include{capitulos/04_anova}
+\include{capitulos/05_comparacoes}
+\include{capitulos/06_regressao}
+\include{capitulos/07_integrador}
+\backmatter
+\fancyhead[R]{\small\textcolor{UEAPDarkGreen}{Material de consulta}}
+\include{capitulos/gabarito}
+\printbibliography[heading=bibintoc,title={Referências e leituras de apoio}]
+\end{document}

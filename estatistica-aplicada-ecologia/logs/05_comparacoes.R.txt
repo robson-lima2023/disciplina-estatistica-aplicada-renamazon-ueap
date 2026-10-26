@@ -1,0 +1,69 @@
+
+> library(ggplot2)
+
+> dir.create("figuras", showWarnings = FALSE)
+
+> dir.create("resultados", showWarnings = FALSE)
+
+> dados <- read.csv("dados/experimento_decomposicao.csv")
+
+> dados$tratamento <- factor(dados$tratamento, levels = c("Baixa", 
++     "Media", "Alta"))
+
+> modelo <- aov(perda_pct ~ tratamento, data = dados)
+
+> summary(modelo)
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+tratamento   2 1248.1   624.1   34.18 2.49e-07 ***
+Residuals   21  383.4    18.3                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+> tukey <- TukeyHSD(modelo, "tratamento", conf.level = 0.95)
+
+> print(tukey)
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = perda_pct ~ tratamento, data = dados)
+
+$tratamento
+                diff       lwr      upr     p adj
+Media-Baixa  7.77500  2.389941 13.16006 0.0041951
+Alta-Baixa  17.62375 12.238691 23.00881 0.0000001
+Alta-Media   9.84875  4.463691 15.23381 0.0004272
+
+
+> write.csv(tukey$tratamento, "resultados/u5_tukey.csv")
+
+> medias <- aggregate(perda_pct ~ tratamento, dados, 
++     mean)
+
+> qm_res <- deviance(modelo)/df.residual(modelo)
+
+> ep <- sqrt(qm_res/8)
+
+> margem <- qt(0.975, df.residual(modelo)) * ep
+
+> medias$inferior <- medias$perda_pct - margem
+
+> medias$superior <- medias$perda_pct + margem
+
+> g <- ggplot(medias, aes(tratamento, perda_pct)) + 
++     geom_errorbar(aes(ymin = inferior, ymax = superior), width = 0.12) + 
++     geom_point(size = 3, color = "#006633") + labs(x = "Umidade", 
++     y = "Perda de massa (%)") + theme_minimal()
+
+> ggsave("figuras/u5_medias.pdf", g, width = 6, height = 3.4)
+
+> estimativa <- medias$perda_pct[3] - medias$perda_pct[1]
+
+> ep_contraste <- sqrt(qm_res * (1/8 + 1/8))
+
+> t_obs <- estimativa/ep_contraste
+
+> p_contraste <- 2 * pt(-abs(t_obs), df.residual(modelo))
+
+> c(diferenca = estimativa, EP = ep_contraste, p = p_contraste)
+   diferenca           EP            p 
+1.762375e+01 2.136445e+00 5.019640e-08 

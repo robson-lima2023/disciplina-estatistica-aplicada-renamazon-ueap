@@ -1,0 +1,91 @@
+
+> library(ggplot2)
+
+> dir.create("figuras", showWarnings = FALSE)
+
+> x <- c(1, 2, 2, 3, 12)
+
+> mean(x)
+[1] 4
+
+> median(x)
+[1] 2
+
+> table(x)
+x
+ 1  2  3 12 
+ 1  2  1  1 
+
+> weighted.mean(c(2, 4), w = c(3, 1))
+[1] 2.5
+
+> var(x)
+[1] 20.5
+
+> sd(x)
+[1] 4.527693
+
+> sd(x)/sqrt(length(x))
+[1] 2.024846
+
+> diff(range(x))
+[1] 11
+
+> IQR(x, type = 7)
+[1] 1
+
+> quantile(x, probs = c(0.25, 0.5, 0.75, 0.9), type = 7)
+25% 50% 75% 90% 
+2.0 2.0 3.0 8.4 
+
+> 100 * sd(x)/mean(x)
+[1] 113.1923
+
+> agua <- read.csv("dados/igarapes.csv")
+
+> colSums(is.na(agua))
+      igarape      ambiente oxigenio_mg_l  turbidez_ntu 
+            0             0             0             0 
+
+> aggregate(oxigenio_mg_l ~ ambiente, data = agua, FUN = mean)
+    ambiente oxigenio_mg_l
+1 Conservado      6.448333
+2    Mosaico      5.465000
+
+> aggregate(oxigenio_mg_l ~ ambiente, data = agua, FUN = sd)
+    ambiente oxigenio_mg_l
+1 Conservado     0.4067350
+2    Mosaico     0.5385418
+
+> quantile(agua$turbidez_ntu, probs = seq(0.1, 0.9, 
++     0.1), type = 7)
+  10%   20%   30%   40%   50%   60%   70%   80%   90% 
+ 5.25  6.24  7.29  9.12 10.65 12.10 14.75 16.42 20.32 
+
+> theme_set(theme_minimal(base_size = 12))
+
+> g1 <- ggplot(agua, aes(turbidez_ntu)) + geom_histogram(bins = 8, 
++     fill = "#006633", color = "white") + labs(x = "Turbidez (NTU)", 
++     y = "Numero de igarapes")
+
+> g2 <- ggplot(agua, aes(ambiente, oxigenio_mg_l)) + 
++     geom_boxplot(fill = "#DDEAE2", outlier.shape = NA) + geom_point(position = position_jitter(width = 0.08, 
++     seed = 1)) + labs(x = "Ambiente", y = "Oxigenio dissolvido (mg/L)")
+
+> g3 <- ggplot(agua, aes(turbidez_ntu)) + geom_density(fill = "#DDEAE2") + 
++     labs(x = "Turbidez (NTU)", y = "Densidade")
+
+> g4 <- ggplot(agua, aes(turbidez_ntu, oxigenio_mg_l)) + 
++     geom_point(color = "#004C99", size = 2) + labs(x = "Turbidez (NTU)", 
++     y = "Oxigenio (mg/L)")
+
+> ggsave("figuras/u2_histograma.pdf", g1, width = 6, 
++     height = 3.2)
+
+> ggsave("figuras/u2_boxplot.pdf", g2, width = 6, height = 3.2)
+
+> ggsave("figuras/u2_densidade.pdf", g3, width = 6, 
++     height = 3.2)
+
+> ggsave("figuras/u2_dispersao.pdf", g4, width = 6, 
++     height = 3.2)

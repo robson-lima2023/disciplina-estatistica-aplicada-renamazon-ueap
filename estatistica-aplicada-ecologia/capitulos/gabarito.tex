@@ -1,0 +1,61 @@
+\chapter{Gabarito comentado}
+As respostas numéricas abaixo correspondem aos dados e à semente distribuídos nesta edição. Ao alterar a base, reexecute os scripts e não conserve estes resultados como se fossem universais. As resoluções completas em R aparecem ao final das respectivas unidades.
+
+\section*{Unidade 1}
+\begin{enumerate}
+\item Ambiente: qualitativa nominal; riqueza: discreta; precipitação: contínua; local: identificador. Parâmetro descreve a população; estimativa é o valor amostral de um estimador.
+\item São 36 localidades na análise entre locais, não 144 réplicas independentes. O agregado de pontos define a resposta de cada local.
+\item A base não contém ausências ou identificadores duplicados e respeita $H'\leq\ln S$. Coerência interna não comprova seleção representativa nem detectabilidade constante.
+\item A tabela exportada tem uma linha por local, quatro horas de esforço e 12 locais por ambiente. A inferência regional dependeria de como os locais reais fossem selecionados.
+\end{enumerate}
+
+\section*{Unidade 2}
+\begin{enumerate}
+\item Média 4, mediana 2 e moda 2 mg/L. Média ponderada do segundo exemplo: 2,5 mg/L. A média é mais sensível ao valor 12.
+\item Amplitude 11 mg/L; variância 20,5 (mg/L)$^2$; DP 4,528 mg/L; EP 2,025 mg/L; CV 113,19\%; quartis 2, 2 e 3 mg/L; AIQ 1 mg/L; P90 8,4 mg/L pelo tipo 7.
+\item A média de oxigênio é 6,448 mg/L em Conservado e 5,465 mg/L em Mosaico. Os decis de turbidez são posições empíricas dos 24 igarapés, não limites ambientais normativos; consulte os valores completos no log da unidade 2.
+\item Histograma e densidade evidenciam a distribuição; boxplot compara grupos; dispersão apresenta pares. Escolhas gráficas alteram a aparência e não estabelecem causalidade nem independência.
+\end{enumerate}
+
+\section*{Unidade 3}
+\begin{enumerate}
+\item $H_0:\mu_C-\mu_M=0$ e $H_1:\mu_C-\mu_M\ne0$. O valor-p é condicional à nula e ao modelo, não uma probabilidade posterior da hipótese.
+\item Diferença 0,983 mg/L, IC95\% 0,578 a 1,389 mg/L; Welch $t=5{,}047$, $gl\approx20{,}468$, $p\approx0{,}000058$. A diferença não constitui efeito causal do ambiente.
+\item Q--Q e Shapiro avaliam aspectos da distribuição, com limitações de tamanho amostral; não comprovam independência. Um $p>0{,}05$ pode refletir baixa sensibilidade do teste.
+\item O teste pareado usa depois menos antes, com $n=12$ diferenças e 11 gl. Média 0,2975 mg/L, IC95\% 0,1360 a 0,4590; $t=4{,}055$, $p=0{,}0019$. O controle do pareamento não elimina confundimento temporal.
+\item O planejamento retorna $n=12{,}570$ por grupo; arredondando para cima, 13 por grupo, total 26. O cálculo pressupõe grupos independentes e uma variância comum definida no planejamento, sem perdas ou agrupamento.
+\end{enumerate}
+
+\section*{Unidade 4}
+\begin{enumerate}
+\item Tratamento: umidade; resposta: perda de massa em \%; unidade: recipiente independente. São oito unidades por nível no DIC.
+\item $SQ_T\approx1631{,}6$, $SQ_{\mathrm{trat}}\approx1248{,}1$, $SQ_E\approx383{,}4$; $F\approx34{,}18$. Os gl são $a-1=2$, $N-a=21$ e $N-1=23$.
+\item Padrões residuais podem sugerir forma inadequada, variância desigual ou influência. Fligner é auxiliar para variâncias; a independência precisa do protocolo e da estrutura de dependência.
+\item DBC: 18 unidades, seis blocos completos, gl 5 para bloco, 2 para tratamento e 10 para resíduo. No ajuste, $F_{\mathrm{trat}}\approx105{,}43$. Uma observação por célula não permite separar interação e erro puro.
+\end{enumerate}
+
+\section*{Unidade 5}
+\begin{enumerate}
+\item F global rejeita igualdade de todas as médias; não identifica todos os pares distintos. Tukey controla a família de comparações par a par.
+\item Alta menos Baixa: 17,624 pontos percentuais, IC simultâneo 12,239 a 23,009; $p$ ajustado aproximadamente $1{,}47\times10^{-7}$. Diferença entre porcentagens não equivale a aumento relativo percentual.
+\item IC de médias individuais representam outra quantidade. Não infira o teste de diferença apenas por sua sobreposição visual.
+\item O contraste $(-1,0,1)$ tem estimativa 17,624 e EP aproximadamente 2,136 pontos percentuais. A justificativa de contraste único exige formulação prévia; uma família exige estratégia de multiplicidade.
+\end{enumerate}
+
+\section*{Unidade 6}
+\begin{enumerate}
+\item O gráfico sugere associação positiva. A topografia é DP da elevação em metros, não altitude média. A associação simples pode refletir outros preditores.
+\item Equação simples: $\widehat H'=1{,}77292+0{,}02601T$; IC da inclinação 0,01422 a 0,03780; $R^2=0{,}3716$; RMSE 0,2365. A inclinação é a variação média de Shannon por metro. O intercepto em zero está fora do domínio observado (4,4 a 30 m).
+\item A identificação por \texttt{which.max(cooks.distance())} retorna a linha 4, local L04. Não constitui critério automático de exclusão. Verifique dados, contexto e sensibilidade.
+\item Para 15 m: média ajustada 2,163; IC 2,080 a 2,246; IP 1,662 a 2,665. O IP inclui variabilidade de uma nova observação.
+\item Coeficiente parcial de topografia: 0,02687 (IC 0,01838 a 0,03535), ajustado por chuva e ambiente. Riqueza exige considerar contagens, distribuição e esforço; não há transferência automática do modelo normal.
+\end{enumerate}
+
+\section*{Unidade 7}
+\begin{enumerate}
+\item São 36 locais únicos, com esforço igual. Detecção ainda pode diferir entre ambientes em um estudo real.
+\item Médias (DP): Conservado 2,417 (0,272); Mosaico 1,960 (0,242); Restauração 2,178 (0,211). Quartis: Conservado 2,246/2,385/2,500; Mosaico 1,800/1,913/2,020; Restauração 2,064/2,121/2,345. Pontos individuais mostram variação e sobreposição.
+\item ANOVA: $F_{2,33}=10{,}65$, $p=0{,}00027$. Mosaico menos Conservado: $-0{,}4575$ (IC simultâneo $-0{,}7009$ a $-0{,}2141$). Os outros dois IC incluem zero. A comparação é observacional e não ajustada por clima ou topografia; não demonstra efeito causal.
+\item O modelo múltiplo estima diferenças entre ambientes condicionadas à chuva e à topografia. Mosaico menos Conservado: $-0{,}4400$; Restauração menos Conservado: $-0{,}2884$. Os contrastes não são efeitos causais.
+\item A frase gerada em \texttt{resultados/u7\_redacao.txt} inclui 36 locais, coeficiente e IC. Para dados repetidos ou agrupados, reveja o tamanho amostral efetivo e utilize uma estrutura que modele essa dependência; adicionar linhas ao mesmo modelo não resolve o problema.
+\end{enumerate}
